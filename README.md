@@ -169,7 +169,7 @@ End-to-end tests are stored under ``test/`` directory. To run particular test
 type (on Linux):
 
 ```shell
-SCONS_EXTERNAL_TEST=1 python runtest.py test/SConsGnuArguments/ArgumentDecl/sconstest-argumentdecl1.py
+SCONS_EXTERNAL_TEST=1 python runtest.py test/SConsGnuArguments/UserManual/sconstest-usermanual-example1.py
 ```
 
 
