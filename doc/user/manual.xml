@@ -17,8 +17,8 @@
 		<package xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">scons-gnu-arguments</package>
 		package is an extension to
 		<productname xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"><link xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://scons.org">SCons</link></productname>
-		which provides several predefined command-line variables and options
-		for scons for GNU-like projects.</para>
+		which provides SCons with several command-line variables and options
+		defined by GNU standards.</para>
 		<para xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">Many
 		open-source projects use
 		<productname xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">autotools</productname>
@@ -41,8 +41,8 @@
 		follow specific standards without explicitly asking it to do so. This
 		is understandable, but also frustrates some developers and package
 		mainainers. As for the moment, there is no cheap and easy way to add
-		the multitude of GNU comman-line options to scons. This package tries
-		to change this.</para>
+		the multitude of existing GNU comman-line options to scons. This
+		package tries to change this.</para>
 		<para xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">This
 		extensions makes is it relativelly easy to add some standard GNU
 		command line options/variables to SCons with just few lines of
@@ -115,12 +115,12 @@ Install file: &quot;hello&quot; as &quot;preinst/usr/bin/hello&quot;
 			CLI variables.</para>
 		</example>
 		<para xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">If
-		you wonder what just happened, let&apos;s appropriate help option to
-		document our CLI variables we&apos;ve just created</para>
+		you wonder what just happened, let&apos;s define appropriate help
+		option to document our CLI variables we&apos;ve just created</para>
 		<example xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">
 			<title xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">Install
-			shell script in $bindir, a script with --help-variables
-			option</title>
+			shell script in $bindir, also add --help-variables option to
+			SConstruct</title>
 			<programlisting xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"># SConstruct
 import SConsGnuArguments.InstallDirs
 
@@ -131,7 +131,7 @@ decls = SConsGnuArguments.InstallDirs.ArgumentDecls() # declare arguments
 args  = decls.Commit(env, var, True)                  # say &quot;no more arguments&quot; to scons
 args.Postprocess(env, var, True)                      # transfer CLI arguments to env
 
-# The following add --help-variables option which documents CLI variables.
+# The following adds --help-variables option which documents CLI variables.
 AddOption( &apos;--help-variables&apos;, dest=&apos;help_variables&apos;, action=&apos;store_true&apos;,
          help=&apos;print help for CLI variables&apos; )
 if GetOption(&apos;help_variables&apos;):
