@@ -22,7 +22,7 @@
 __docformat__ = "restructuredText"
 
 """
-Tests SConsGnuArguments.InstallDirs.ArgumentDecls() with no arguments, verify
+Tests SConsGnuArguments.InstallDirs.Declarations() with no arguments, verify
 the help strings it generates
 """
 
@@ -38,7 +38,7 @@ import SConsGnuArguments.InstallDirs
 
 env = Environment()
 var = Variables()
-decls = SConsGnuArguments.InstallDirs.ArgumentDecls()
+decls = SConsGnuArguments.InstallDirs.Declarations()
 args = decls.Commit(env, var, True)
 
 AddOption('--help-variables', dest='help_variables', action='store_true',

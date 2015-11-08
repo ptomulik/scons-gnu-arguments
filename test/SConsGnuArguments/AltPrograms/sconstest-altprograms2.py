@@ -22,7 +22,8 @@
 __docformat__ = "restructuredText"
 
 """
-Tests SConsGnuArguments.InstallDirs - example 1 in API docs.
+Tests SConsGnuArguments.AltPrograms.Declarations(), test whether they enter
+scons environment
 """
 
 import TestSCons
@@ -33,24 +34,47 @@ test.dir_fixture('../../../site_scons/SConsArguments', 'site_scons/SConsArgument
 test.write('SConstruct',
 """
 # SConstruct
-import SConsGnuArguments.InstallDirs
+import SConsGnuArguments.AltPrograms
 
-env = Environment()
+env = Environment(tools=[])
 env.Replace(install_package = 'my_install_package', package = 'my_package')
 var = Variables()
-decls = SConsGnuArguments.InstallDirs.Declarations()
+decls = SConsGnuArguments.AltPrograms.Declarations()
 args = decls.Commit(env, var, True)
 args.Postprocess(env, var, True)
 
-print env.subst("prefix : ${prefix}")
-print env.subst("bindir : ${bindir}")
+proxy = args.EnvProxy(env)
+for k in SConsGnuArguments.AltPrograms.Names():
+    print proxy.subst("%s : ${%s}" % (k, k))
 """)
 
-test.run(['-Q'])
-test.must_contain_all_lines(test.stdout(), ["""prefix : /usr/local""", """bindir : /usr/local/bin"""])
+test_tab = [
+  (
+    ['AWK=/my/awk', 'INSTALL=/my/install'],
+    [
+        r"""AWK : /my/awk""",
+        r"""EGREP :""",
+        r"""FGREP :""",
+        r"""GREP :""",
+        r"""INSTALL : /my/install""",
+        r"""INSTALL_DATA : /my/install""",
+        r"""INSTALL_PROGRAM : /my/install""",
+        r"""INSTALL_SCRIPT : /my/install""",
+        r"""LEX :""",
+        r"""LEX_OUTPUT_ROOT :""",
+        r"""LEXLIB :""",
+        r"""LN_S :""",
+        r"""MKDIR_P :""",
+        r"""RANLIB :""",
+        r"""SED :""",
+        r"""YACC :""",
+    ]
+  ),
+]
 
-test.run(['-Q', 'prefix=/usr'])
-test.must_contain_all_lines(test.stdout(), ["""prefix : /usr""", """bindir : /usr/bin"""])
+for cli_vars, chk_lines in test_tab:
+    test.run(['-Q'] + cli_vars)
+    test.must_contain_all_lines(test.stdout(), chk_lines)
 
 test.pass_test()
 

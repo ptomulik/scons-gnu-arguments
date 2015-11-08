@@ -43,7 +43,7 @@ import SConsGnuArguments.InstallDirs
 env = Environment()                                   # SCons environment, you should know it
 var = Variables()                                     # container for SCons CLI variables
 
-decls = SConsGnuArguments.InstallDirs.ArgumentDecls() # declare arguments
+decls = SConsGnuArguments.InstallDirs.Declarations() # declare arguments
 args  = decls.Commit(env, var, True)                  # say "no more arguments" to scons
 args.Postprocess(env, var, True)                      # transfer CLI arguments to env
 

@@ -348,38 +348,28 @@ class Test__std_arg_triples(unittest.TestCase):
         """Test 'pkglibexecdir' in InstallDirs._std_arg_triples"""
         self.chck_triple('pkglibexecdir')
 
-class Test__map_std_arg_triples(unittest.TestCase):
-    def test__map_std_arg_triples_1(self):
-        """InstallDirs._map_std_arg_triples(lambda *x : x) should return InstallDirs._std_arg_triples"""
-        triples = SConsGnuArguments.InstallDirs._map_std_arg_triples(lambda *x : x)
-        self.assertListEqual(triples, SConsGnuArguments.InstallDirs._std_arg_triples)
-    def test__map_std_arg_triples_2(self):
-        """InstallDirs._map_std_arg_triples(lambda *x : x, lambda x : False) should return []"""
-        triples = SConsGnuArguments.InstallDirs._map_std_arg_triples(lambda *x : x, lambda s : False)
-        self.assertListEqual(triples, [])
-    def test__map_std_arg_triples_3(self):
-        """InstallDirs._map_std_arg_triples(lambda *x : (x[0],), lambda x : x=='prefix') should return [('prefix',)]"""
-        triples = SConsGnuArguments.InstallDirs._map_std_arg_triples(lambda *x : (x[0],), lambda s : s == 'prefix')
-        self.assertListEqual(triples, [('prefix',)])
-
-class Test_ArgumentNames(unittest.TestCase):
-    def test_ArgumentNames_1(self):
-        """InstallDirs.ArgumentNames() should return all argument names"""
-        names = SConsGnuArguments.InstallDirs.ArgumentNames()
+class Test_Names(unittest.TestCase):
+    def test_Names_1(self):
+        """InstallDirs.Names() should return all argument names"""
+        names = SConsGnuArguments.InstallDirs.Names()
         self.assertListEqual(names, _test_arg_names)
-    def test_ArgumentNames_2(self):
-        """InstallDirs.ArgumentNames(lambda s : s == 'prefix') should return ['prefix']"""
-        names = SConsGnuArguments.InstallDirs.ArgumentNames(lambda s : s == 'prefix')
+    def test_Names_2(self):
+        """InstallDirs.Names(lambda s : s == 'prefix') should return ['prefix']"""
+        names = SConsGnuArguments.InstallDirs.Names(lambda s : s == 'prefix')
         self.assertListEqual(names, ['prefix'])
-    def test_ArgumentNames_3(self):
-        """InstallDirs.ArgumentNames(lambda s : s == 'inexistent') should return []"""
-        names = SConsGnuArguments.InstallDirs.ArgumentNames(lambda s : s == 'inexistent')
+    def test_Names_3(self):
+        """InstallDirs.Names(['prefix', 'exec_prefix', 'foo']) should return ['prefix','exec_prefix']"""
+        names = SConsGnuArguments.InstallDirs.Names(['prefix', 'exec_prefix', 'foo'])
+        self.assertListEqual(names, ['prefix', 'exec_prefix'])
+    def test_Names_4(self):
+        """InstallDirs.Names(lambda s : s == 'inexistent') should return []"""
+        names = SConsGnuArguments.InstallDirs.Names(lambda s : s == 'inexistent')
         self.assertListEqual(names, [])
 
-class Test_ArgumentDecls(unittest.TestCase):
-    def test_ArgumentDecls_1(self):
-        """InstallDirs.ArgumentDecls() should return all argument declaratins"""
-        decls = SConsGnuArguments.InstallDirs.ArgumentDecls()
+class Test_Declarations(unittest.TestCase):
+    def test_Declarations_1(self):
+        """InstallDirs.Declarations() should return all argument declaratins"""
+        decls = SConsGnuArguments.InstallDirs.Declarations()
         self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
         for (key, hlp, default) in _test_arg_triples:
             self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
@@ -389,9 +379,9 @@ class Test_ArgumentDecls(unittest.TestCase):
             self.assertEqual(decls[key].get_env_default(), default)
             self.assertEqual(decls[key].get_var_default(), default)
 
-    def test_ArgumentDecls_2(self):
-        """InstallDirs.ArgumentDecls(env_key_transform=False) should not create construction variables"""
-        decls = SConsGnuArguments.InstallDirs.ArgumentDecls(env_key_transform = False)
+    def test_Declarations_2(self):
+        """InstallDirs.Declarations(env_key_transform=False) should not create construction variables"""
+        decls = SConsGnuArguments.InstallDirs.Declarations(env_key_transform = False)
         self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
         for (key, hlp, default) in _test_arg_triples:
             self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
@@ -399,9 +389,9 @@ class Test_ArgumentDecls(unittest.TestCase):
             self.assertTrue(decls[key].has_var_decl())
             self.assertFalse(decls[key].has_opt_decl())
 
-    def test_ArgumentDecls_3(self):
-        """InstallDirs.ArgumentDecls(var_key_transform=False) should not create command-line variables"""
-        decls = SConsGnuArguments.InstallDirs.ArgumentDecls(var_key_transform = False)
+    def test_Declarations_3(self):
+        """InstallDirs.Declarations(var_key_transform=False) should not create command-line variables"""
+        decls = SConsGnuArguments.InstallDirs.Declarations(var_key_transform = False)
         self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
         for (key, hlp, default) in _test_arg_triples:
             self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
@@ -409,9 +399,9 @@ class Test_ArgumentDecls(unittest.TestCase):
             self.assertFalse(decls[key].has_var_decl())
             self.assertFalse(decls[key].has_opt_decl())
 
-    def test_ArgumentDecls_4(self):
-        """InstallDirs.ArgumentDecls(opt_key_transform=True) should create command-line options"""
-        decls = SConsGnuArguments.InstallDirs.ArgumentDecls(opt_key_transform = True)
+    def test_Declarations_4(self):
+        """InstallDirs.Declarations(opt_key_transform=True) should create command-line options"""
+        decls = SConsGnuArguments.InstallDirs.Declarations(opt_key_transform = True)
         self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
         for (key, hlp, default) in _test_arg_triples:
             self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
@@ -419,18 +409,27 @@ class Test_ArgumentDecls(unittest.TestCase):
             self.assertTrue(decls[key].has_var_decl())
             self.assertTrue(decls[key].has_opt_decl())
 
-    def test_ArgumentDecls_5(self):
-        """InstallDirs.ArgumentDecls(name_filter = lambda s : s == 'prefix') should only create 'prefix' argument"""
-        decls = SConsGnuArguments.InstallDirs.ArgumentDecls(name_filter = lambda s : s == 'prefix')
+    def test_Declarations_5(self):
+        """InstallDirs.Declarations(name_filter = lambda s : s == 'prefix') should only create 'prefix' argument"""
+        decls = SConsGnuArguments.InstallDirs.Declarations(name_filter = lambda s : s == 'prefix')
         self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
         self.assertEqual(len(decls), 1)
         self.assertEqual(decls['prefix'].get_env_key(), 'prefix')
         self.assertEqual(decls['prefix'].get_var_key(), 'prefix')
         self.assertFalse(decls['prefix'].has_opt_decl())
 
-    def test_ArgumentDecls_6(self):
-        """Test InstallDirs.ArgumentDecls() with prefixes/suffixes"""
-        decls = SConsGnuArguments.InstallDirs.ArgumentDecls(
+    def test_Declarations_6(self):
+        """InstallDirs.Declarations(name_filter = ['prefix', 'foo']) should only create 'prefix' argument"""
+        decls = SConsGnuArguments.InstallDirs.Declarations(name_filter = ['prefix','foo'])
+        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(len(decls), 1)
+        self.assertEqual(decls['prefix'].get_env_key(), 'prefix')
+        self.assertEqual(decls['prefix'].get_var_key(), 'prefix')
+        self.assertFalse(decls['prefix'].has_opt_decl())
+
+    def test_Declarations_7(self):
+        """Test InstallDirs.Declarations() with prefixes/suffixes"""
+        decls = SConsGnuArguments.InstallDirs.Declarations(
                     env_key_prefix = 'ENV_', env_key_suffix = '_VNE',
                     var_key_prefix = 'VAR_', var_key_suffix = '_RAV',
                     opt_key_prefix = 'opt_', opt_key_suffix = '_pto',
@@ -451,9 +450,8 @@ if __name__ == "__main__":
     suite = unittest.TestSuite()
     # Load tests to test suite
     tclasses = [ Test__std_arg_triples
-               , Test__map_std_arg_triples
-               , Test_ArgumentNames
-               , Test_ArgumentDecls
+               , Test_Names
+               , Test_Declarations
                ]
 
     for tclass in tclasses:

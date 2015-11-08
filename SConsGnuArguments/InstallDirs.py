@@ -21,7 +21,7 @@ The variables defined here may be easilly added to:
     env = Environment()
     env.Replace(install_package = 'my_install_package', package = 'my_package')
     var = Variables()
-    decls = SConsGnuArguments.InstallDirs.ArgumentDecls()
+    decls = SConsGnuArguments.InstallDirs.Declarations()
     args = decls.Commit(env, var, True)
     args.Postprocess(env, var, True)
 
@@ -143,6 +143,7 @@ __docformat__ = 'restructuredText'
 
 import os
 import SConsArguments
+import SConsGnuArguments.Util
 
 #############################################################################
 # NOTE: variable substitutions must be in curly brackets, so use ${prefix}
@@ -259,30 +260,7 @@ def __init_module_vars(**kw):
 __init_module_vars()
 
 #############################################################################
-def _map_std_arg_triples(callback, name_filter = lambda x : True):
-    """Map `_std_arg_triples` via `callback`. This function is for internal
-    use, it IS **NOT a part of public API**.
-
-    :Parameters:
-        callback : callable
-            function of type ``callback(name, desc, default)``, where
-
-                - ``name:`` is the name of variable being processed,
-                - ``desc:`` is short description,
-                - ``default:`` is the default value for the variable.
-        name_filter : callable
-            callable object (e.g. lambda) of type ``name_filter(name) ->
-            boolean`` used to filter-out unwanted variables; only these
-            variables are processed, for which name_filter returns ``True``
-
-    :Returns:
-        the result of mapping the `_std_arg_triples` through the `callback`
-    """
-    triples = filter(lambda t : name_filter(t[0]), _std_arg_triples)
-    return map(lambda x : callback(*x), triples)
-
-#############################################################################
-def ArgumentNames(name_filter = lambda x : True):
+def Names(name_filter = lambda x : True):
     """Return list of standard GNU directory argument names.
 
     :Parameters:
@@ -293,22 +271,21 @@ def ArgumentNames(name_filter = lambda x : True):
     :Returns:
         the list of standard GNU directory variable names
     """
-    return _map_std_arg_triples(lambda *x : x[0], name_filter)
+    return SConsGnuArguments.Util.names_from_triples(_std_arg_triples, name_filter)
 
 ###############################################################################
-def ArgumentDecls(**kw):
+def Declarations(**kw):
     """Return declarations of SCons *arguments* for all predefined GNU
     installation directory variables.
 
     :Keywords:
         defaults : dict
-            User-specified default values for the Arguments being declared. You'll
-            usually put your SCons Environment object env here,
+            user-specified default values for the Arguments being declared,
         name_filter : callable
             callable object (e.g. lambda) of type ``name_filter(name) ->
             boolean`` used to filter-out unwanted variables; only these
             variables are processed, for which name_filter returns ``True``
-        transformer : SConsArguments.Transformer
+        transformer : `SConsArguments.Transformer`
             a `SConsArguments.Transformer` object used to transform
             *argument* names to *endpoint* (construction variable, command-line
             variable, command-line option) names,
@@ -330,7 +307,7 @@ def ArgumentDecls(**kw):
             passed to `SConsArguments.Transformer.__init__()`,
         opt_key_transform
             passed to `SConsArguments.Transformer.__init__()`, note that
-            `ArgumentDecls` sets this to ``False`` by default,
+            `Declarations` sets this to ``False`` by default,
         opt_prefix
             passed to `SConsArguments.Transformer.__init__()`,
         opt_name_prefix
@@ -343,37 +320,9 @@ def ArgumentDecls(**kw):
     :Returns:
         an instance of `SConsArguments._ArgumentDecls`
     """
-    def _callback(name, desc, default):
-        try:
-            default = defaults[name]
-        except KeyError:
-            pass
-        if name.endswith('ext'):
-            metavar = 'EXT'
-        else:
-            metavar = 'DIR'
-        decl = { 'env_key'  : transformer.env_key_transform(name),
-                 'var_key'  : transformer.var_key_transform(name),
-                 'opt_key'  : transformer.opt_key_transform(name),
-                 'default'  : default,
-                 'help'     : desc,
-                 'option'   : transformer.option_transform(name),
-                 'type'     : 'string',
-                 'nargs'    : 1,
-                 'metavar'  : metavar }
-        return name, decl
-
-    defaults = kw.get('defaults', dict())
-    name_filter = kw.get('name_filter', lambda s : True)
-    try:
-        transformer = kw['transformer']
-    except KeyError:
-        skip = ['defaults', 'name_filter', 'transformer', 'opt_key_transform']
-        kw2 = { k:v for (k,v) in kw.iteritems() if k not in skip }
-        # by default, we do not create options
-        kw2['opt_key_transform'] = kw.get('opt_key_transform', False)
-        transformer = SConsArguments.Transformer(**kw2)
-    return SConsArguments.DeclareArguments(_map_std_arg_triples(_callback, name_filter))
+    if not 'opt_key_transform' in kw:
+        kw['opt_key_transform'] = False
+    return SConsGnuArguments.Util.arguments_from_triples(_std_arg_triples, **kw)
 
 # Local Variables:
 # # tab-width:4

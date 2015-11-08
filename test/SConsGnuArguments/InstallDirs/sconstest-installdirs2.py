@@ -22,7 +22,7 @@
 __docformat__ = "restructuredText"
 
 """
-Tests SConsGnuArguments.InstallDirs.ArgumentDecls(), test whether they enter
+Tests SConsGnuArguments.InstallDirs.Declarations(), test whether they enter
 scons environment
 """
 
@@ -36,15 +36,15 @@ test.write('SConstruct',
 # SConstruct
 import SConsGnuArguments.InstallDirs
 
-env = Environment()
+env = Environment(tools = [])
 env.Replace(install_package = 'my_install_package', package = 'my_package')
 var = Variables()
-decls = SConsGnuArguments.InstallDirs.ArgumentDecls()
+decls = SConsGnuArguments.InstallDirs.Declarations()
 args = decls.Commit(env, var, True)
 args.Postprocess(env, var, True)
 
 proxy = args.EnvProxy(env)
-for k in SConsGnuArguments.InstallDirs.ArgumentNames():
+for k in SConsGnuArguments.InstallDirs.Names():
     print proxy.subst("%s : ${%s}" % (k, k))
 """)
 
