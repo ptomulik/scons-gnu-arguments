@@ -18,9 +18,9 @@
 		package is an extension to
 		<productname xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"><link xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://scons.org">SCons</link></productname>
 		which provides several predefined command-line variables and options
-		for scons scripts that are used to build GNU-like software.</para>
-		<para xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">Most
-		GNU projects use
+		for scons for GNU-like projects.</para>
+		<para xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">Many
+		open-source projects use
 		<productname xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">autotools</productname>
 		and
 		<productname xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">make</productname>
@@ -37,12 +37,12 @@
 		(<code xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">make
 		CC=clang</code>). All these options are very mature and well-known to
 		open-source developers and package maintainers. They are not avaiable
-		in SCons, however, which is quite obvious, as SCons it too generic to
-		follow some specific standards without explicitly asking it to do so.
-		This is understandable, but also frustrates some developers and
-		package mainainers. As for the moment, there is no cheap and easy way
-		to add the multitude of GNU comman-line options in the default scons
-		installation. This package tries to fix this.</para>
+		in SCons, however, which is quite obvious, as SCons is too generic to
+		follow specific standards without explicitly asking it to do so. This
+		is understandable, but also frustrates some developers and package
+		mainainers. As for the moment, there is no cheap and easy way to add
+		the multitude of GNU comman-line options to scons. This package tries
+		to change this.</para>
 		<para xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">This
 		extensions makes is it relativelly easy to add some standard GNU
 		command line options/variables to SCons with just few lines of
@@ -60,12 +60,11 @@
 		<title xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">Quick
 		Start</title>
 		<para xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">Before
-		using this module, it&apos;s recommended to get familiar with
+		using this module, it&apos;s recommended to take a look at the
 		<link xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://github.com/ptomulik/scons-arguments">scons-arguments</link>
 		package, as most commands appearing here are explained in
 		<link xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://ptomulik.github.io/scons-arguments/user/manual.html">that
-		package&apos;s documentation</link>. As not required, it shall make
-		the following code snippets less cryptic to read.</para>
+		package&apos;s documentation</link>.</para>
 		<para xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">As
 		a quick example, let us write a simple SConstruct file which installs
 		a shell script in an appropriate installation directory, as defined
@@ -203,7 +202,7 @@ decls = SConsGnuArguments.InstallDirs.ArgumentDecls()</programlisting>
 		declares all arguments predefined in the
 		<literal xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">InstallDirs</literal>
 		module. The full list of predefined arguments may be found in
-		<link xlink:href="https://ptomulik.github.io/scons-gnu-arguments/api/toc-SConsGnuArguments.InstallDirs-module.html">API
+		<link xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://ptomulik.github.io/scons-gnu-arguments/api/toc-SConsGnuArguments.InstallDirs-module.html">API
 		documentation</link>. If you want only some of them, you may provide
 		name filter to filter-out unwanted arguments. For that, create a
 		callable object (lambda, function, whatever) and pass it as a
@@ -240,10 +239,13 @@ decls = SConsGnuArguments.InstallDirs.ArgumentDecls(name_filter = lambda s : s i
 		<informalexample xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">
 			<programlisting xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">decls = SConsGnuArguments.InstallDirs.ArgumentDecls(var_key_transform = False, opt_key_transform = True)</programlisting>
 		</informalexample>
-		<para>This should generate command-line options such as
-		<option>--prefix</option> or <option>--exec-prefix</option>. Note
-		that command-line options can&apos;t be saved to a file by using
-		<link xlink:href="https://github.com/ptomulik/scons-arguments">scons-arguments</link>
+		<para xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">This
+		should generate command-line options such as
+		<option xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">--prefix</option>
+		or
+		<option xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">--exec-prefix</option>.
+		Note that command-line options can&apos;t be saved to a file by using
+		<link xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://github.com/ptomulik/scons-arguments">scons-arguments</link>
 		API, whereas command-line variables may be saved easily.</para>
 		<para xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">By
 		default construction variables, command-line variables and
@@ -322,34 +324,40 @@ decls = SConsGnuArguments.InstallDirs.ArgumentDecls(name_filter = lambda s : s i
 				<td xmlns="http://docbook.org/ns/docbook"><parameter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">opt_prefix</parameter></td>
 				<td xmlns="http://docbook.org/ns/docbook">Prefix to be used as a
 				starter for command-line option, usually
-				<literal>&apos;--&apos;</literal></td>
+				<literal xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">&apos;--&apos;</literal></td>
 			</tr>
 			<tr xmlns="http://docbook.org/ns/docbook">
 				<td xmlns="http://docbook.org/ns/docbook"><parameter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">env_key_transform</parameter></td>
 				<td xmlns="http://docbook.org/ns/docbook">A callable object used to
 				generate names of construction variables based on argument names.
 				Providing this usually ignores all the prefix/suffix arguments. It
-				may also be set to <literal>True</literal> to force the usage of
-				default generator, or to <literal>False</literal> to disable the
-				generation of construction variables.</td>
+				may also be set to
+				<literal xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">True</literal>
+				to force the usage of default generator, or to
+				<literal xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">False</literal>
+				to disable the generation of construction variables.</td>
 			</tr>
 			<tr xmlns="http://docbook.org/ns/docbook">
 				<td xmlns="http://docbook.org/ns/docbook"><parameter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">var_key_transform</parameter></td>
 				<td xmlns="http://docbook.org/ns/docbook">A callable object used to
 				generate names of command-line variables based on argument names.
 				Providing this usually ignores all the prefix/suffix arguments. It
-				may also be set to <literal>True</literal> to force the usage of
-				default generator, or to <literal>False</literal> to disable the
-				generation of command-line variables.</td>
+				may also be set to
+				<literal xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">True</literal>
+				to force the usage of default generator, or to
+				<literal xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">False</literal>
+				to disable the generation of command-line variables.</td>
 			</tr>
 			<tr xmlns="http://docbook.org/ns/docbook">
 				<td xmlns="http://docbook.org/ns/docbook"><parameter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">opt_key_transform</parameter></td>
 				<td xmlns="http://docbook.org/ns/docbook">A callable object used to
 				generate keys identifying command-line options based on argument
 				names. Providing this usually ignores all the prefix/suffix
-				arguments. It may also be set to <literal>True</literal> to force
-				the usage of default generator, or to <literal>False</literal> to
-				disable the generation of command-line options.</td>
+				arguments. It may also be set to
+				<literal xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">True</literal>
+				to force the usage of default generator, or to
+				<literal xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">False</literal>
+				to disable the generation of command-line options.</td>
 			</tr>
 			<tr xmlns="http://docbook.org/ns/docbook">
 				<td xmlns="http://docbook.org/ns/docbook"><parameter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">option_transform</parameter></td>
