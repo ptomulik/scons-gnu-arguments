@@ -1,7 +1,7 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>scons-gnu-arguments</title><link rel="stylesheet" type="text/css" href="docbook.css"></link><link rel="stylesheet" type="text/css" href="scons-gnu-arguments.css"></link><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"></meta></head><body><section class="article" id="idm46491512817264"><div class="titlepage"><div><div><h2 class="title">scons-gnu-arguments</h2></div><div><h3 class="subtitle"><em>User's
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>scons-gnu-arguments</title><link rel="stylesheet" type="text/css" href="docbook.css"></link><link rel="stylesheet" type="text/css" href="scons-gnu-arguments.css"></link><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"></meta></head><body><section class="article" id="idm45937025212208"><div class="titlepage"><div><div><h2 class="title">scons-gnu-arguments</h2></div><div><h3 class="subtitle"><em>User's
 	Manual</em></h3></div><div><div class="author"><h3 class="author">Paweł
-			Tomulik</h3><code class="email">&lt;<a class="email" href="mailto:ptomulik@meil.pw.edu.pl">ptomulik@meil.pw.edu.pl</a>&gt;</code></div></div><div><p class="pubdate">2015-11-08</p></div></div><hr></hr></div><div class="toc"><div class="toc-title">Table of Contents</div><ul class="toc"><li><span class="section"><a href="#sec-intro">1. Introduction</a></span></li><li><span class="section"><a href="#idm46491512218112">2. Quick
-		Start</a></span></li><li><span class="section"><a href="#idm46491511721648">3. GNU
+			Tomulik</h3><code class="email">&lt;<a class="email" href="mailto:ptomulik@meil.pw.edu.pl">ptomulik@meil.pw.edu.pl</a>&gt;</code></div></div><div><p class="pubdate">2015-11-08</p></div></div><hr></hr></div><div class="toc"><div class="toc-title">Table of Contents</div><ul class="toc"><li><span class="section"><a href="#sec-intro">1. Introduction</a></span></li><li><span class="section"><a href="#idm45937024864800">2. Quick
+		Start</a></span></li><li><span class="section"><a href="#idm45937024316224">3. GNU
 		Installation Directories</a></span></li></ul></div><section class="section" id="sec-intro"><div class="titlepage"><div><div><h2 class="title" style="clear: both">1. Introduction</h2></div></div></div><p>The
 		<span class="package">scons-gnu-arguments</span>
 		package is an extension to
@@ -40,7 +40,7 @@
 		<a class="link" href="https://github.com/ptomulik/scons-arguments" target="_top">scons-arguments</a>
 		must be installed along with
 		<a class="link" href="https://github.com/ptomulik/scons-gnu-arguments" target="_top">scons-gnu-arguments</a>
-		in a project that uses GNU arguments.</p></section><section class="section" id="idm46491512218112"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2. Quick
+		in a project that uses GNU arguments.</p></section><section class="section" id="idm45937024864800"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2. Quick
 		Start</h2></div></div></div><p>Before
 		using this module, it's recommended to take a look at the
 		<a class="link" href="https://github.com/ptomulik/scons-arguments" target="_top">scons-arguments</a>
@@ -56,7 +56,7 @@
 		<code class="varname">prefix</code>,
 		<code class="varname">exec_prefix</code>
 		and
-		<code class="varname">bindir</code>.</p><div class="example" id="idm46491512532064"><div class="example-title">Example 1. Install
+		<code class="varname">bindir</code>.</p><div class="example" id="idm45937025159808"><div class="example-title">Example 1. Install
 			shell script in $bindir</div><div class="example-contents"><p>Write
 			the follwing two files,
 			<code class="filename">hello</code>:</p><pre class="programlisting">#! /bin/sh
@@ -86,7 +86,7 @@ Install file: "hello" as "preinst/usr/bin/hello"
 			<code class="varname">bindir</code>
 			CLI variables.</p></div></div><br class="example-break"></br><p>If
 		you wonder what just happened, let's define appropriate help
-		option to document our CLI variables we've just created</p><div class="example" id="idm46491514344080"><div class="example-title">Example 2. Install
+		option to document our CLI variables we've just created</p><div class="example" id="idm45937025856608"><div class="example-title">Example 2. Install
 			shell script in $bindir, also add --help-variables option to
 			SConstruct</div><div class="example-contents"><pre class="programlisting"># SConstruct
 import SConsGnuArguments.InstallDirs
@@ -134,7 +134,7 @@ bindir: The directory for installing executable programs that users can run.
 		standarized GNU command-line arguments. In the above example, we have
 		used arguments from the submodule
 		<code class="literal">InstallDirs</code>,
-		which defines variables for GNU installation directories.</p></section><section class="section" id="idm46491511721648"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3. GNU
+		which defines variables for GNU installation directories.</p></section><section class="section" id="idm45937024316224"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3. GNU
 		Installation Directories</h2></div></div></div><p><a class="link" href="http://www.gnu.org/prep/standards/html_node/Directory-Variables.html" target="_top">GNU
 		directory variables</a> are defined in a module named
 		<code class="literal">SConsGnuArguments.InstallDirs</code>.
@@ -148,7 +148,7 @@ decls = SConsGnuArguments.InstallDirs.ArgumentDecls()</pre></div><p>This
 		declares all arguments predefined in the
 		<code class="literal">InstallDirs</code>
 		module. The full list of predefined arguments may be found in
-		<a class="link" href="https://ptomulik.github.io/scons-gnu-arguments/api/toc-SConsGnuArguments.InstallDirs-module.html" target="_top">API
+		<a class="link" href="https://ptomulik.github.io/scons-gnu-arguments/api/" target="_top">API
 		documentation</a>. If you want only some of them, you may provide
 		name filter to filter-out unwanted arguments. For that, create a
 		callable object (lambda, function, whatever) and pass it as a
