@@ -202,7 +202,7 @@ decls = SConsGnuArguments.InstallDirs.ArgumentDecls()</programlisting>
 		declares all arguments predefined in the
 		<literal xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">InstallDirs</literal>
 		module. The full list of predefined arguments may be found in
-		<link xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://ptomulik.github.io/scons-gnu-arguments/api/toc-SConsGnuArguments.InstallDirs-module.html">API
+		<link xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://ptomulik.github.io/scons-gnu-arguments/api/">API
 		documentation</link>. If you want only some of them, you may provide
 		name filter to filter-out unwanted arguments. For that, create a
 		callable object (lambda, function, whatever) and pass it as a
