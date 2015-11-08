@@ -1,0 +1,276 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>scons-gnu-arguments</title><link rel="stylesheet" type="text/css" href="docbook.css"></link><link rel="stylesheet" type="text/css" href="scons-gnu-arguments.css"></link><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"></meta></head><body><section class="article" id="idm46687987458624"><div class="titlepage"><div><div><h2 class="title">scons-gnu-arguments</h2></div><div><h3 class="subtitle"><em>User's
+	Manual</em></h3></div><div><div class="author"><h3 class="author">Paweł
+			Tomulik</h3><code class="email">&lt;<a class="email" href="mailto:ptomulik@meil.pw.edu.pl">ptomulik@meil.pw.edu.pl</a>&gt;</code></div></div><div><p class="pubdate">2015-11-08</p></div></div><hr></hr></div><div class="toc"><div class="toc-title">Table of Contents</div><ul class="toc"><li><span class="section"><a href="#sec-intro">1. Introduction</a></span></li><li><span class="section"><a href="#idm46687987685520">2. Quick
+		Start</a></span></li><li><span class="section"><a href="#idm46687987429296">3. GNU
+		Installation Directories</a></span></li></ul></div><section class="section" id="sec-intro"><div class="titlepage"><div><div><h2 class="title" style="clear: both">1. Introduction</h2></div></div></div><p>The
+		<span class="package">scons-gnu-arguments</span>
+		package is an extension to
+		<span class="productname"><a class="link" href="http://scons.org" target="_top">SCons</a></span>
+		which provides several predefined command-line variables and options
+		for scons scripts that are used to build GNU-like software.</p><p>Most
+		GNU projects use
+		<span class="productname">autotools</span>
+		and
+		<span class="productname">make</span>
+		to build their software. These tools provide a set of standard
+		command-line options and variables such as
+		<code class="literal">--prefix</code>
+		or
+		<code class="literal">CC</code>.
+		Their users may easily configure project with a custom installation
+		prefix
+		(<code class="code">./configure
+		--prefix=/usr/bin</code>) or chose specific compiler via command-line
+		variables
+		(<code class="code">make
+		CC=clang</code>). All these options are very mature and well-known to
+		open-source developers and package maintainers. They are not avaiable
+		in SCons, however, which is quite obvious, as SCons it too generic to
+		follow some specific standards without explicitly asking it to do so.
+		This is understandable, but also frustrates some developers and
+		package mainainers. As for the moment, there is no cheap and easy way
+		to add the multitude of GNU comman-line options in the default scons
+		installation. This package tries to fix this.</p><p>This
+		extensions makes is it relativelly easy to add some standard GNU
+		command line options/variables to SCons with just few lines of
+		code.</p><p>The
+		package only works in pair with
+		<a class="link" href="https://github.com/ptomulik/scons-arguments" target="_top">scons-arguments</a>,
+		so
+		<a class="link" href="https://github.com/ptomulik/scons-arguments" target="_top">scons-arguments</a>
+		must be installed along with
+		<a class="link" href="https://github.com/ptomulik/scons-gnu-arguments" target="_top">scons-gnu-arguments</a>
+		in a project that uses GNU arguments.</p></section><section class="section" id="idm46687987685520"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2. Quick
+		Start</h2></div></div></div><p>Before
+		using this module, it's recommended to get familiar with
+		<a class="link" href="https://github.com/ptomulik/scons-arguments" target="_top">scons-arguments</a>
+		package, as most commands appearing here are explained in
+		<a class="link" href="http://ptomulik.github.io/scons-arguments/user/manual.html" target="_top">that
+		package's documentation</a>. As not required, it shall make
+		the following code snippets less cryptic to read.</p><p>As
+		a quick example, let us write a simple SConstruct file which installs
+		a shell script in an appropriate installation directory, as defined
+		by GNU standards (in
+		<code class="varname">$bindir</code>,
+		if you know what I mean). The installation path shall be configurable
+		via command-line variables
+		<code class="varname">prefix</code>,
+		<code class="varname">exec_prefix</code>
+		and
+		<code class="varname">bindir</code>.</p><div class="example" id="idm46687987216656"><div class="example-title">Example 1. Install
+			shell script in $bindir</div><div class="example-contents"><p>Write
+			the follwing two files,
+			<code class="filename">hello</code>:</p><pre class="programlisting">#! /bin/sh
+echo 'hello world!'</pre><p>and
+			<code class="filename">SConstruct</code>:</p><pre class="programlisting"># SConstruct
+import SConsGnuArguments.InstallDirs
+
+env = Environment()                                   # SCons environment, you should know it
+var = Variables()                                     # container for SCons CLI variables
+
+decls = SConsGnuArguments.InstallDirs.ArgumentDecls() # declare arguments
+args  = decls.Commit(env, var, True)                  # say "no more arguments" to scons
+args.Postprocess(env, var, True)                      # transfer CLI arguments to env
+
+# The rest is quite usual
+hello_i = env.InstallAs("${bindir}/hello", 'hello')   # NOTE the ${bindir}
+
+env.Alias('install', hello_i)
+env.AlwaysBuild('install')</pre><p>Now
+			build the project and install the compiled program as follows:</p><pre class="screen"><code class="prompt">ptomulik@barakus:$ </code><span class="command"><strong>scons</strong></span> -Q install prefix=preinst/usr
+Install file: "hello" as "preinst/usr/bin/hello"
+</pre><p>Note,
+			that the installation directory may be changed with
+			<code class="varname">prefix</code>,
+			<code class="varname">exec_prefix</code>
+			and
+			<code class="varname">bindir</code>
+			CLI variables.</p></div></div><br class="example-break"></br><p>If
+		you wonder what just happened, let's appropriate help option to
+		document our CLI variables we've just created</p><div class="example" id="idm46687987437344"><div class="example-title">Example 2. Install
+			shell script in $bindir, a script with --help-variables
+			option</div><div class="example-contents"><pre class="programlisting"># SConstruct
+import SConsGnuArguments.InstallDirs
+
+env = Environment()                                   # SCons environment, you should know it
+var = Variables()                                     # container for SCons CLI variables
+
+decls = SConsGnuArguments.InstallDirs.ArgumentDecls() # declare arguments
+args  = decls.Commit(env, var, True)                  # say "no more arguments" to scons
+args.Postprocess(env, var, True)                      # transfer CLI arguments to env
+
+# The following add --help-variables option which documents CLI variables.
+AddOption( '--help-variables', dest='help_variables', action='store_true',
+         help='print help for CLI variables' )
+if GetOption('help_variables'):
+  print args.GenerateVariablesHelpText(var, env)
+  Exit(0)
+
+# The rest is quite usual
+hello_i = env.InstallAs("${bindir}/hello", 'hello')   # NOTE the ${bindir}
+
+env.Alias('install', hello_i)
+env.AlwaysBuild('install')</pre><p>Now
+			dump some info about variables to the console</p><pre class="screen"><code class="prompt">ptomulik@barakus:$ </code><span class="command"><strong>scons</strong></span> -Q --help-variables
+
+docdir: The directory for installing documentation files (other than Info) for this package.
+    default: ${datarootdir}/doc/${install_package}
+    actual: /usr/local/share/doc/
+&lt;... lot of output here ...&gt;
+prefix: Installation prefix
+    default: /usr/local
+    actual: /usr/local
+&lt;... lot of output ...&gt;
+prefix: Installation prefix
+    default: /usr/local
+    actual: /usr/local
+&lt;... lot of output ...&gt;
+bindir: The directory for installing executable programs that users can run.
+    default: ${exec_prefix}/bin
+    actual: /usr/local/bin
+</pre></div></div><br class="example-break"></br><p>The
+		package
+		<code class="literal">SConsGnuArguments</code>
+		contains several submodules, each providing some subset of
+		standarized GNU command-line arguments. In the above example, we have
+		used arguments from the submodule
+		<code class="literal">InstallDirs</code>,
+		which defines variables for GNU installation directories.</p></section><section class="section" id="idm46687987429296"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3. GNU
+		Installation Directories</h2></div></div></div><p><a class="link" href="http://www.gnu.org/prep/standards/html_node/Directory-Variables.html" target="_top">GNU
+		directory variables</a> are defined in a module named
+		<code class="literal">SConsGnuArguments.InstallDirs</code>.
+		The module provides two public functions</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="function">ArgumentNames()</code>
+				- which lists all argument names defined by the module,</p></li><li class="listitem"><p><code class="function">ArgumentDecls()</code>
+				- which provides declarations of SCons arguments implementing the
+				GNU directory variables.</p></li></ul></div><p>We'll
+		focus only on the second. As the simplest use case we may declare all
+		the predefined GNU directory variables as follows</p><div class="informalexample"><pre class="programlisting">import SConsGnuArguments.InstallDirs
+decls = SConsGnuArguments.InstallDirs.ArgumentDecls()</pre></div><p>This
+		declares all arguments predefined in the
+		<code class="literal">InstallDirs</code>
+		module. The full list of predefined arguments may be found in
+		<a class="link" href="https://ptomulik.github.io/scons-gnu-arguments/api/toc-SConsGnuArguments.InstallDirs-module.html" target="_top">API
+		documentation</a>. If you want only some of them, you may provide
+		name filter to filter-out unwanted arguments. For that, create a
+		callable object (lambda, function, whatever) and pass it as a
+		<em class="parameter"><code>name_filter</code></em>
+		keyword argument to
+		<code class="function">ArgumentDecls()</code>.</p><div class="informalexample"><pre class="programlisting">allowed = ['prefix', 'exec_prefix', 'bindir']
+decls = SConsGnuArguments.InstallDirs.ArgumentDecls(name_filter = lambda s : s in allowed)</pre></div><p>The
+		<em class="parameter"><code>name_filter</code></em>
+		should be a callable which takes a string (argument's name) and
+		returns
+		<code class="literal">True</code>
+		(to include argument) or
+		<code class="literal">False</code>
+		(to exclude argument).</p><p>By
+		default, the arguments declared with
+		<code class="function">SConsGnuArguments.InstallDirs.ArgumentDecls()</code>
+		create a set of command-line variables
+		(<code class="literal">scons
+		variable=value</code>). You may change this to create command-line
+		options
+		(<code class="literal">scons
+		--option=value</code>) instead (or you may want to have both, CLI
+		variables and options, it's not a problem). To enable
+		command-line options and disable variables, manipulate
+		<em class="parameter"><code>var_key_transform</code></em>
+		and
+		<em class="parameter"><code>opt_key_transform</code></em>
+		parameters as follows.</p><div class="informalexample"><pre class="programlisting">decls = SConsGnuArguments.InstallDirs.ArgumentDecls(var_key_transform = False, opt_key_transform = True)</pre></div><p>This should generate command-line options such as
+		<code class="option">--prefix</code> or <code class="option">--exec-prefix</code>. Note
+		that command-line options can't be saved to a file by using
+		<a class="link" href="https://github.com/ptomulik/scons-arguments" target="_top">scons-arguments</a>
+		API, whereas command-line variables may be saved easily.</p><p>By
+		default construction variables, command-line variables and
+		command-line options inherit their names directly from their
+		arguments. That is, if we have an argument named
+		<code class="varname">prefix</code>,
+		then its corresponding construction variable fill be named
+		<code class="varname">prefix</code>
+		as well as command-line variable and command-line option (note, that
+		command-line options get lowercased by default). This may be changed
+		easily, for example there is a very quick and easy way to add
+		prefixes/suffixes to the generated names. For example, we may want to
+		add
+		<code class="literal">"GNU_"</code>
+		prefix to corresponding construction variables, such that argument,
+		like
+		<code class="varname">bindir</code>,
+		will be seen as
+		<code class="varname">GNU_bindir</code>
+		in SCons environment. This may be achieved with
+		<em class="parameter"><code>env_key_prefix</code></em>
+		parameter as follows.</p><div class="informalexample"><pre class="programlisting">decls = SConsGnuArguments.InstallDirs.ArgumentDecls(env_key_prefix = 'GNU_')</pre></div><p>The
+		possible arguments that allow to customize name generation for
+		construction variables, command-line variables and command-line
+		options are summarized in the following table</p><div class="informaltable"><table><tr>
+				<th>Parameter</th>
+				<th>Description</th>
+			</tr><tr>
+				<td><em class="parameter"><code>env_key_prefix</code></em></td>
+				<td>Prefix to be prepended to
+				the name of construction variable</td>
+			</tr><tr>
+				<td><em class="parameter"><code>env_key_suffix</code></em></td>
+				<td>Suffix to be appended to
+				the name of construction variable</td>
+			</tr><tr>
+				<td><em class="parameter"><code>var_key_prefix</code></em></td>
+				<td>Prefix to be prepended to
+				the name of command-line variable</td>
+			</tr><tr>
+				<td><em class="parameter"><code>var_key_suffix</code></em></td>
+				<td>Suffix to be appended to
+				the name of command-line variable</td>
+			</tr><tr>
+				<td><em class="parameter"><code>opt_key_prefix</code></em></td>
+				<td>Prefix to be prepended to
+				the key identifying command-line option</td>
+			</tr><tr>
+				<td><em class="parameter"><code>opt_key_suffix</code></em></td>
+				<td>Suffix to be appended to
+				the key identifying command-line option</td>
+			</tr><tr>
+				<td><em class="parameter"><code>opt_name_prefix</code></em></td>
+				<td>Prefix to be prepended to
+				the name of command-line option</td>
+			</tr><tr>
+				<td><em class="parameter"><code>opt_name_suffix</code></em></td>
+				<td>Suffix to be appended to
+				the name of command-line option</td>
+			</tr><tr>
+				<td><em class="parameter"><code>opt_prefix</code></em></td>
+				<td>Prefix to be used as a
+				starter for command-line option, usually
+				<code class="literal">'--'</code></td>
+			</tr><tr>
+				<td><em class="parameter"><code>env_key_transform</code></em></td>
+				<td>A callable object used to
+				generate names of construction variables based on argument names.
+				Providing this usually ignores all the prefix/suffix arguments. It
+				may also be set to <code class="literal">True</code> to force the usage of
+				default generator, or to <code class="literal">False</code> to disable the
+				generation of construction variables.</td>
+			</tr><tr>
+				<td><em class="parameter"><code>var_key_transform</code></em></td>
+				<td>A callable object used to
+				generate names of command-line variables based on argument names.
+				Providing this usually ignores all the prefix/suffix arguments. It
+				may also be set to <code class="literal">True</code> to force the usage of
+				default generator, or to <code class="literal">False</code> to disable the
+				generation of command-line variables.</td>
+			</tr><tr>
+				<td><em class="parameter"><code>opt_key_transform</code></em></td>
+				<td>A callable object used to
+				generate keys identifying command-line options based on argument
+				names. Providing this usually ignores all the prefix/suffix
+				arguments. It may also be set to <code class="literal">True</code> to force
+				the usage of default generator, or to <code class="literal">False</code> to
+				disable the generation of command-line options.</td>
+			</tr><tr>
+				<td><em class="parameter"><code>option_transform</code></em></td>
+				<td>A callable object used to
+				generate options names based on argument names. Providing this
+				usually ignores all the prefix/suffix arguments.</td>
+			</tr></table></div></section></section></body></html>

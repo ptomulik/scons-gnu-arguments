@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>SConsGnuArguments.InstallDirs</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="SConsGnuArguments-module.html">Package&nbsp;SConsGnuArguments</a> ::
+        Module&nbsp;InstallDirs
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="SConsGnuArguments.InstallDirs-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module InstallDirs</h1><p class="nomargin-top"><span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html">source&nbsp;code</a></span></p>
+<p><a href="SConsGnuArguments.InstallDirs-module.html" class="link">SConsGnuArguments.InstallDirs</a></p>
+<p>Provides <a class="rst-reference external" href="http://www.gnu.org/prep/standards/html_node/Directory-Variables.html" target="_top">GNU directory variables</a> as SCons <em>arguments</em>.</p>
+<p><strong>General Description</strong></p>
+<p>This module provides standard <a class="rst-reference external" href="http://www.gnu.org/prep/standards/html_node/Directory-Variables.html" target="_top">GNU directory variables</a> defined by <a class="rst-reference external" href="http://www.gnu.org/prep/standards/html_node/" target="_top">GNU
+Coding Standards</a>, for example <tt class="rst-docutils literal">$prefix</tt>, <tt class="rst-docutils literal">$bindir</tt> or <tt class="rst-docutils literal">$sysconfdir</tt>.
+The variables defined here may be easilly added to:</p>
+<blockquote>
+<ul class="rst-simple">
+<li>SCons environment, as construction variables (<tt class="rst-docutils literal"><span class="pre">env.subst('$variable')</span></tt>),</li>
+<li>SCons command line variables (<tt class="rst-docutils literal">scons variable=value</tt>),</li>
+<li>SCons command line options (<tt class="rst-docutils literal">scons <span class="pre">--variable=value</span></tt>).</li>
+</ul>
+</blockquote>
+<p><strong>Quick start</strong></p>
+<pre class="py-doctest">
+<span class="py-comment"># SConstruct</span>
+<span class="py-keyword">import</span> SConsGnuArguments.InstallDirs
+
+env = Environment()
+env.Replace(install_package = <span class="py-string">'my_install_package'</span>, package = <span class="py-string">'my_package'</span>)
+var = Variables()
+decls = SConsGnuArguments.InstallDirs.ArgumentDecls()
+args = decls.Commit(env, var, True)
+args.Postprocess(env, var, True)
+
+<span class="py-keyword">print</span> env.subst(<span class="py-string">&quot;prefix : ${prefix}&quot;</span>)
+<span class="py-keyword">print</span> env.subst(<span class="py-string">&quot;bindir : ${bindir}&quot;</span>)</pre>
+<p>Running examples:</p>
+<pre class="rst-literal-block">
+ptomulik&#64;barakus:$ scons -Q
+prefix : /usr/local
+bindir : /usr/local/bin
+
+ptomulik&#64;barakus:$ scons -Q prefix=/usr
+prefix : /usr
+bindir : /usr/bin
+</pre>
+<p><strong>Supported variables</strong></p>
+<blockquote>
+<dl class="rst-docutils">
+<dt>prefix</dt>
+<dd>Installation prefix</dd>
+<dt>exec_prefix</dt>
+<dd>Installation prefix for executable files</dd>
+<dt>bindir</dt>
+<dd>The directory for installing executable programs that users can run.</dd>
+<dt>sbindir</dt>
+<dd>The directory for installing executable programs that can be run from the
+shell, but are only generally useful to system administrators.</dd>
+<dt>libexecdir</dt>
+<dd>The directory for installing executable programs to be run by other
+programs rather than by users.</dd>
+<dt>datarootdir</dt>
+<dd>The root of the directory tree for read-only architecture-independent
+data files.</dd>
+<dt>datadir</dt>
+<dd>The directory for installing idiosyncratic read-only
+architecture-independent data files for this program.</dd>
+<dt>sysconfdir</dt>
+<dd>The directory for installing read-only data files that pertain to a single
+machine - that is to say, files for configuring a host.</dd>
+<dt>sharedstatedir</dt>
+<dd>The directory for installing architecture-independent data files which
+the programs modify while they run.</dd>
+<dt>localstatedir</dt>
+<dd>The directory for installing data files which the programs modify while
+they run, and that pertain to one specific machine.</dd>
+<dt>includedir</dt>
+<dd>The directory for installing header files to be included by user programs
+with the C <tt class="rst-docutils literal">#include</tt> preprocessor directive.</dd>
+<dt>oldincludedir</dt>
+<dd>The directory for installing <tt class="rst-docutils literal">#include</tt> header files for use with compilers
+other than GCC.</dd>
+<dt>docdir</dt>
+<dd>The directory for installing documentation files (other than Info) for this
+package.</dd>
+<dt>infodir</dt>
+<dd>The directory for installing the Info files for this package.</dd>
+<dt>htmldir</dt>
+<dd>Directory for installing documentation files in the html format.</dd>
+<dt>dvidir</dt>
+<dd>Directory for installing documentation files in the dvi format.</dd>
+<dt>pdfdir</dt>
+<dd>Directory for installing documentation files in the pdf format.</dd>
+<dt>psdir</dt>
+<dd>Directory for installing documentation files in the ps format.</dd>
+<dt>libdir</dt>
+<dd>The directory for object files and libraries of object code.</dd>
+<dt>lispdir</dt>
+<dd>The directory for installing any Emacs Lisp files in this package.</dd>
+<dt>localedir</dt>
+<dd>The directory for installing locale-specific message catalogs for this
+package.</dd>
+<dt>mandir</dt>
+<dd>The top-level directory for installing the man pages (if any) for this
+package.</dd>
+<dt>man1dir .. man9dir</dt>
+<dd>Simmilar to mandir</dd>
+<dt>man1ext .. man9ext</dt>
+<dd>Extensions for manpage files.</dd>
+<dt>pkgdatadir</dt>
+<dd>The directory for installing idiosyncratic read-only
+architecture-independent data files for this program.</dd>
+<dt>pkgincludedir</dt>
+<dd>The directory for installing header files to be included by user programs
+with the C <tt class="rst-docutils literal">#include</tt> preprocessor directive.</dd>
+<dt>pkglibdir</dt>
+<dd>The directory for object files and libraries of object code.</dd>
+<dt>pkglibexecdir</dt>
+<dd>The directory for installing executable programs to be run by other
+programs rather than by users.</dd>
+</dl>
+</blockquote>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init_module_vars"></a><span class="summary-sig-name">__init_module_vars</span>(<span class="summary-sig-arg">**kw</span>)</span><br />
+      Initializes some module-level variables. This is an internal function
+and IS <strong>NOT a part of public API</strong>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#__init_module_vars">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="SConsGnuArguments.InstallDirs-module.html#_map_std_arg_triples" class="summary-sig-name" onclick="show_private();">_map_std_arg_triples</a>(<span class="summary-sig-arg">callback</span>,
+        <span class="summary-sig-arg">name_filter</span>=<span class="summary-sig-default">&lt;__builtin__.function object&gt;</span>)</span><br />
+      Map <a href="SConsGnuArguments.InstallDirs-module.html#_std_arg_triples" class="link" onclick="show_private();">_std_arg_triples</a> via <code class="link">callback</code>. This function is for internal
+use, it IS <strong>NOT a part of public API</strong>.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#_map_std_arg_triples">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="SConsGnuArguments.InstallDirs-module.html#ArgumentNames" class="summary-sig-name">ArgumentNames</a>(<span class="summary-sig-arg">name_filter</span>=<span class="summary-sig-default">&lt;__builtin__.function object&gt;</span>)</span><br />
+      Return list of standard GNU directory argument names.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#ArgumentNames">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="SConsGnuArguments.InstallDirs-module.html#ArgumentDecls" class="summary-sig-name">ArgumentDecls</a>(<span class="summary-sig-arg">**kw</span>)</span><br />
+      Return declarations of SCons <em>arguments</em> for all predefined GNU
+installation directory variables.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#ArgumentDecls">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="SConsGnuArguments.InstallDirs-module.html#_std_arg_triples" class="summary-name" onclick="show_private();">_std_arg_triples</a> = <code title="[('prefix', 'Installation prefix', '/usr/local'),
+ ('exec_prefix',
+  'Installation prefix for executable files',
+  '${prefix}'),
+ ('bindir',
+  'The directory for installing executable programs that users can run\
+.',
+  '${exec_prefix}/bin'),
+..."><code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">prefix</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Installation prefix</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">/usr/lo</code><code class="variable-ellipsis">...</code></code><br />
+      Standard list of arguments for GNU install directories. This is internal
+attribute and IS <strong>NOT a part of public API</strong>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'SConsGnuArguments'"><code class="variable-quote">'</code><code class="variable-string">SConsGnuArguments</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_map_std_arg_triples"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_map_std_arg_triples</span>(<span class="sig-arg">callback</span>,
+        <span class="sig-arg">name_filter</span>=<span class="sig-default">&lt;__builtin__.function object&gt;</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#_map_std_arg_triples">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Map <a href="SConsGnuArguments.InstallDirs-module.html#_std_arg_triples" class="link" onclick="show_private();">_std_arg_triples</a> via <code class="link">callback</code>. This function is for internal
+use, it IS <strong>NOT a part of public API</strong>.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><p><strong class="pname"><code>callback</code></strong> (callable) - function of type <tt class="rst-docutils literal">callback(name, desc, default)</tt>, where</p>
+<blockquote>
+<ul class="rst-simple">
+<li><tt class="rst-docutils literal">name:</tt> is the name of variable being processed,</li>
+<li><tt class="rst-docutils literal">desc:</tt> is short description,</li>
+<li><tt class="rst-docutils literal">default:</tt> is the default value for the variable.</li>
+</ul>
+</blockquote></li>
+        <li><strong class="pname"><code>name_filter</code></strong> (callable) - callable object (e.g. lambda) of type <tt class="rst-docutils literal">name_filter(name) <span class="pre">-&gt;</span>
+boolean</tt> used to filter-out unwanted variables; only these
+variables are processed, for which name_filter returns <tt class="rst-docutils literal">True</tt></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the result of mapping the <a href="SConsGnuArguments.InstallDirs-module.html#_std_arg_triples" class="link" onclick="show_private();">_std_arg_triples</a> through the <code class="link">callback</code></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ArgumentNames"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ArgumentNames</span>(<span class="sig-arg">name_filter</span>=<span class="sig-default">&lt;__builtin__.function object&gt;</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#ArgumentNames">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Return list of standard GNU directory argument names.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name_filter</code></strong> (callable) - callable object (e.g. lambda) of type <tt class="rst-docutils literal">name_filter(name) <span class="pre">-&gt;</span>
+boolean</tt> used to filter-out unwanted variables; only these
+variables are processed, for which name_filter returns <tt class="rst-docutils literal">True</tt></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the list of standard GNU directory variable names</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ArgumentDecls"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ArgumentDecls</span>(<span class="sig-arg">**kw</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#ArgumentDecls">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  Return declarations of SCons <em>arguments</em> for all predefined GNU
+installation directory variables.
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>defaults</code></strong> (dict) - User-specified default values for the Arguments being declared. You'll
+usually put your SCons Environment object env here,</li>
+        <li><strong class="pname"><code>name_filter</code></strong> (callable) - callable object (e.g. lambda) of type <tt class="rst-docutils literal">name_filter(name) <span class="pre">-&gt;</span>
+boolean</tt> used to filter-out unwanted variables; only these
+variables are processed, for which name_filter returns <tt class="rst-docutils literal">True</tt></li>
+        <li><strong class="pname"><code>transformer</code></strong> (SConsArguments.Transformer) - a <a href="SConsArguments.Transformer-class.html" class="link">SConsArguments.Transformer</a> object used to transform
+<em>argument</em> names to <em>endpoint</em> (construction variable, command-line
+variable, command-line option) names,</li>
+        <li><strong class="pname"><code>env_key_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>env_key_suffix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>env_key_transform</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>var_key_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>var_key_suffix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>var_key_transform</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>opt_key_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>opt_key_suffix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>opt_key_transform</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>, note that
+<a href="SConsGnuArguments.InstallDirs-module.html#ArgumentDecls" class="link">ArgumentDecls</a> sets this to <tt class="rst-docutils literal">False</tt> by default,</li>
+        <li><strong class="pname"><code>opt_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>opt_name_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>opt_name_suffix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
+        <li><strong class="pname"><code>option_transform</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>.</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>an instance of <a href="SConsArguments._ArgumentDecls-class.html" class="link" onclick="show_private();">SConsArguments._ArgumentDecls</a></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_std_arg_triples"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_std_arg_triples</h3>
+  Standard list of arguments for GNU install directories. This is internal
+attribute and IS <strong>NOT a part of public API</strong>
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">prefix</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Installation prefix</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">/usr/local</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">exec_prefix</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+  <code class="variable-quote">'</code><code class="variable-string">Installation prefix for executable files</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+  <code class="variable-quote">'</code><code class="variable-string">${prefix}</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">bindir</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+  <code class="variable-quote">'</code><code class="variable-string">The directory for installing executable programs that users can run</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">.</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+  <code class="variable-quote">'</code><code class="variable-string">${exec_prefix}/bin</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    on Sun Nov  8 18:23:51 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
