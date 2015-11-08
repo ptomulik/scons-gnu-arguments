@@ -3,7 +3,7 @@ scons-gnu-arguments
 
 | travis-ci | appveyor  | coveralls |
 |-----------|-----------|-----------|
-|[![Build Status](https://travis-ci.org/ptomulik/scons-gnu-arguments.png?branch=master)](https://travis-ci.org/ptomulik/scons-gnu-arguments)| [![Build status](https://ci.appveyor.com/api/projects/status/0fvtobp37lh1le0y/branch/master?svg=true)](https://ci.appveyor.com/project/ptomulik/scons-gnu-arguments/branch/master) | [![Coverage Status](https://coveralls.io/repos/ptomulik/scons-gnu-arguments/badge.svg?branch=master&service=github)](https://coveralls.io/github/ptomulik/scons-gnu-arguments?branch=master) |
+|[![Build Status](https://travis-ci.org/ptomulik/scons-gnu-arguments.png?branch=master)](https://travis-ci.org/ptomulik/scons-gnu-arguments)| [![Build status](https://ci.appveyor.com/api/projects/status/xdjcgb8tovt605ug?svg=true)](https://ci.appveyor.com/project/ptomulik/scons-gnu-arguments) | [![Coverage Status](https://coveralls.io/repos/ptomulik/scons-gnu-arguments/badge.svg?branch=master&service=github)](https://coveralls.io/github/ptomulik/scons-gnu-arguments?branch=master) |
 
 Welcome to ``scons-gnu-arguments``.
 
