@@ -1,14 +1,14 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>scons-gnu-arguments</title><link rel="stylesheet" type="text/css" href="docbook.css"></link><link rel="stylesheet" type="text/css" href="scons-gnu-arguments.css"></link><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"></meta></head><body><section class="article" id="idm46687987458624"><div class="titlepage"><div><div><h2 class="title">scons-gnu-arguments</h2></div><div><h3 class="subtitle"><em>User's
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>scons-gnu-arguments</title><link rel="stylesheet" type="text/css" href="docbook.css"></link><link rel="stylesheet" type="text/css" href="scons-gnu-arguments.css"></link><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"></meta></head><body><section class="article" id="idm45909813542704"><div class="titlepage"><div><div><h2 class="title">scons-gnu-arguments</h2></div><div><h3 class="subtitle"><em>User's
 	Manual</em></h3></div><div><div class="author"><h3 class="author">Paweł
-			Tomulik</h3><code class="email">&lt;<a class="email" href="mailto:ptomulik@meil.pw.edu.pl">ptomulik@meil.pw.edu.pl</a>&gt;</code></div></div><div><p class="pubdate">2015-11-08</p></div></div><hr></hr></div><div class="toc"><div class="toc-title">Table of Contents</div><ul class="toc"><li><span class="section"><a href="#sec-intro">1. Introduction</a></span></li><li><span class="section"><a href="#idm46687987685520">2. Quick
-		Start</a></span></li><li><span class="section"><a href="#idm46687987429296">3. GNU
+			Tomulik</h3><code class="email">&lt;<a class="email" href="mailto:ptomulik@meil.pw.edu.pl">ptomulik@meil.pw.edu.pl</a>&gt;</code></div></div><div><p class="pubdate">2015-11-08</p></div></div><hr></hr></div><div class="toc"><div class="toc-title">Table of Contents</div><ul class="toc"><li><span class="section"><a href="#sec-intro">1. Introduction</a></span></li><li><span class="section"><a href="#idm45909813944592">2. Quick
+		Start</a></span></li><li><span class="section"><a href="#idm45909812779936">3. GNU
 		Installation Directories</a></span></li></ul></div><section class="section" id="sec-intro"><div class="titlepage"><div><div><h2 class="title" style="clear: both">1. Introduction</h2></div></div></div><p>The
 		<span class="package">scons-gnu-arguments</span>
 		package is an extension to
 		<span class="productname"><a class="link" href="http://scons.org" target="_top">SCons</a></span>
 		which provides several predefined command-line variables and options
-		for scons scripts that are used to build GNU-like software.</p><p>Most
-		GNU projects use
+		for scons for GNU-like projects.</p><p>Many
+		open-source projects use
 		<span class="productname">autotools</span>
 		and
 		<span class="productname">make</span>
@@ -25,12 +25,12 @@
 		(<code class="code">make
 		CC=clang</code>). All these options are very mature and well-known to
 		open-source developers and package maintainers. They are not avaiable
-		in SCons, however, which is quite obvious, as SCons it too generic to
-		follow some specific standards without explicitly asking it to do so.
-		This is understandable, but also frustrates some developers and
-		package mainainers. As for the moment, there is no cheap and easy way
-		to add the multitude of GNU comman-line options in the default scons
-		installation. This package tries to fix this.</p><p>This
+		in SCons, however, which is quite obvious, as SCons is too generic to
+		follow specific standards without explicitly asking it to do so. This
+		is understandable, but also frustrates some developers and package
+		mainainers. As for the moment, there is no cheap and easy way to add
+		the multitude of GNU comman-line options to scons. This package tries
+		to change this.</p><p>This
 		extensions makes is it relativelly easy to add some standard GNU
 		command line options/variables to SCons with just few lines of
 		code.</p><p>The
@@ -40,14 +40,13 @@
 		<a class="link" href="https://github.com/ptomulik/scons-arguments" target="_top">scons-arguments</a>
 		must be installed along with
 		<a class="link" href="https://github.com/ptomulik/scons-gnu-arguments" target="_top">scons-gnu-arguments</a>
-		in a project that uses GNU arguments.</p></section><section class="section" id="idm46687987685520"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2. Quick
+		in a project that uses GNU arguments.</p></section><section class="section" id="idm45909813944592"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2. Quick
 		Start</h2></div></div></div><p>Before
-		using this module, it's recommended to get familiar with
+		using this module, it's recommended to take a look at the
 		<a class="link" href="https://github.com/ptomulik/scons-arguments" target="_top">scons-arguments</a>
 		package, as most commands appearing here are explained in
 		<a class="link" href="http://ptomulik.github.io/scons-arguments/user/manual.html" target="_top">that
-		package's documentation</a>. As not required, it shall make
-		the following code snippets less cryptic to read.</p><p>As
+		package's documentation</a>.</p><p>As
 		a quick example, let us write a simple SConstruct file which installs
 		a shell script in an appropriate installation directory, as defined
 		by GNU standards (in
@@ -57,7 +56,7 @@
 		<code class="varname">prefix</code>,
 		<code class="varname">exec_prefix</code>
 		and
-		<code class="varname">bindir</code>.</p><div class="example" id="idm46687987216656"><div class="example-title">Example 1. Install
+		<code class="varname">bindir</code>.</p><div class="example" id="idm45909813123488"><div class="example-title">Example 1. Install
 			shell script in $bindir</div><div class="example-contents"><p>Write
 			the follwing two files,
 			<code class="filename">hello</code>:</p><pre class="programlisting">#! /bin/sh
@@ -87,7 +86,7 @@ Install file: "hello" as "preinst/usr/bin/hello"
 			<code class="varname">bindir</code>
 			CLI variables.</p></div></div><br class="example-break"></br><p>If
 		you wonder what just happened, let's appropriate help option to
-		document our CLI variables we've just created</p><div class="example" id="idm46687987437344"><div class="example-title">Example 2. Install
+		document our CLI variables we've just created</p><div class="example" id="idm45909814035216"><div class="example-title">Example 2. Install
 			shell script in $bindir, a script with --help-variables
 			option</div><div class="example-contents"><pre class="programlisting"># SConstruct
 import SConsGnuArguments.InstallDirs
@@ -135,7 +134,7 @@ bindir: The directory for installing executable programs that users can run.
 		standarized GNU command-line arguments. In the above example, we have
 		used arguments from the submodule
 		<code class="literal">InstallDirs</code>,
-		which defines variables for GNU installation directories.</p></section><section class="section" id="idm46687987429296"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3. GNU
+		which defines variables for GNU installation directories.</p></section><section class="section" id="idm45909812779936"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3. GNU
 		Installation Directories</h2></div></div></div><p><a class="link" href="http://www.gnu.org/prep/standards/html_node/Directory-Variables.html" target="_top">GNU
 		directory variables</a> are defined in a module named
 		<code class="literal">SConsGnuArguments.InstallDirs</code>.
@@ -177,9 +176,12 @@ decls = SConsGnuArguments.InstallDirs.ArgumentDecls(name_filter = lambda s : s i
 		<em class="parameter"><code>var_key_transform</code></em>
 		and
 		<em class="parameter"><code>opt_key_transform</code></em>
-		parameters as follows.</p><div class="informalexample"><pre class="programlisting">decls = SConsGnuArguments.InstallDirs.ArgumentDecls(var_key_transform = False, opt_key_transform = True)</pre></div><p>This should generate command-line options such as
-		<code class="option">--prefix</code> or <code class="option">--exec-prefix</code>. Note
-		that command-line options can't be saved to a file by using
+		parameters as follows.</p><div class="informalexample"><pre class="programlisting">decls = SConsGnuArguments.InstallDirs.ArgumentDecls(var_key_transform = False, opt_key_transform = True)</pre></div><p>This
+		should generate command-line options such as
+		<code class="option">--prefix</code>
+		or
+		<code class="option">--exec-prefix</code>.
+		Note that command-line options can't be saved to a file by using
 		<a class="link" href="https://github.com/ptomulik/scons-arguments" target="_top">scons-arguments</a>
 		API, whereas command-line variables may be saved easily.</p><p>By
 		default construction variables, command-line variables and
@@ -249,25 +251,31 @@ decls = SConsGnuArguments.InstallDirs.ArgumentDecls(name_filter = lambda s : s i
 				<td>A callable object used to
 				generate names of construction variables based on argument names.
 				Providing this usually ignores all the prefix/suffix arguments. It
-				may also be set to <code class="literal">True</code> to force the usage of
-				default generator, or to <code class="literal">False</code> to disable the
-				generation of construction variables.</td>
+				may also be set to
+				<code class="literal">True</code>
+				to force the usage of default generator, or to
+				<code class="literal">False</code>
+				to disable the generation of construction variables.</td>
 			</tr><tr>
 				<td><em class="parameter"><code>var_key_transform</code></em></td>
 				<td>A callable object used to
 				generate names of command-line variables based on argument names.
 				Providing this usually ignores all the prefix/suffix arguments. It
-				may also be set to <code class="literal">True</code> to force the usage of
-				default generator, or to <code class="literal">False</code> to disable the
-				generation of command-line variables.</td>
+				may also be set to
+				<code class="literal">True</code>
+				to force the usage of default generator, or to
+				<code class="literal">False</code>
+				to disable the generation of command-line variables.</td>
 			</tr><tr>
 				<td><em class="parameter"><code>opt_key_transform</code></em></td>
 				<td>A callable object used to
 				generate keys identifying command-line options based on argument
 				names. Providing this usually ignores all the prefix/suffix
-				arguments. It may also be set to <code class="literal">True</code> to force
-				the usage of default generator, or to <code class="literal">False</code> to
-				disable the generation of command-line options.</td>
+				arguments. It may also be set to
+				<code class="literal">True</code>
+				to force the usage of default generator, or to
+				<code class="literal">False</code>
+				to disable the generation of command-line options.</td>
 			</tr><tr>
 				<td><em class="parameter"><code>option_transform</code></em></td>
 				<td>A callable object used to
