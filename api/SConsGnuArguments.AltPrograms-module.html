@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>SConsGnuArguments.InstallDirs</title>
+  <title>SConsGnuArguments.AltPrograms</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="SConsGnuArguments-module.html">Package&nbsp;SConsGnuArguments</a> ::
-        Module&nbsp;InstallDirs
+        Module&nbsp;AltPrograms
       </span>
     </td>
     <td>
@@ -45,127 +45,64 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="SConsGnuArguments.InstallDirs-module.html"
+            >]&nbsp;|&nbsp;<a href="SConsGnuArguments.AltPrograms-module.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module InstallDirs</h1><p class="nomargin-top"><span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html">source&nbsp;code</a></span></p>
-<p><a href="SConsGnuArguments.InstallDirs-module.html" class="link">SConsGnuArguments.InstallDirs</a></p>
-<p>Provides <a class="rst-reference external" href="http://www.gnu.org/prep/standards/html_node/Directory-Variables.html" target="_top">GNU directory variables</a> as SCons <em>arguments</em>.</p>
+<h1 class="epydoc">Module AltPrograms</h1><p class="nomargin-top"><span class="codelink"><a href="SConsGnuArguments.AltPrograms-pysrc.html">source&nbsp;code</a></span></p>
+<p><a href="SConsGnuArguments.AltPrograms-module.html" class="link">SConsGnuArguments.AltPrograms</a></p>
+<p>SCons <em>arguments</em> for <a class="rst-reference external" href="http://www.gnu.org/software/autoconf/manual/autoconf.html#Alternative-Programs" target="_top">Alternative Programs</a>.</p>
 <p><strong>General Description</strong></p>
-<p>This module provides standard <a class="rst-reference external" href="http://www.gnu.org/prep/standards/html_node/Directory-Variables.html" target="_top">GNU directory variables</a> defined by <a class="rst-reference external" href="http://www.gnu.org/prep/standards/html_node/" target="_top">GNU
-Coding Standards</a>, for example <tt class="rst-docutils literal">$prefix</tt>, <tt class="rst-docutils literal">$bindir</tt> or <tt class="rst-docutils literal">$sysconfdir</tt>.
-The variables defined here may be easilly added to:</p>
+<p>This module provides standard <a class="rst-reference external" href="http://www.gnu.org/software/autoconf/manual/autoconf.html#Output-Variable-Index" target="_top">autoconf output variables</a>  which define paths
+to <a class="rst-reference external" href="http://www.gnu.org/software/autoconf/manual/autoconf.html#Alternative-Programs" target="_top">Alternative Programs</a>. Each variable may be accessed via:</p>
 <blockquote>
 <ul class="rst-simple">
 <li>SCons environment, as construction variables (<tt class="rst-docutils literal"><span class="pre">env.subst('$variable')</span></tt>),</li>
 <li>SCons command line variables (<tt class="rst-docutils literal">scons variable=value</tt>),</li>
-<li>SCons command line options (<tt class="rst-docutils literal">scons <span class="pre">--variable=value</span></tt>).</li>
 </ul>
 </blockquote>
-<p><strong>Quick start</strong></p>
-<pre class="py-doctest">
-<span class="py-comment"># SConstruct</span>
-<span class="py-keyword">import</span> SConsGnuArguments.InstallDirs
-
-env = Environment()
-env.Replace(install_package = <span class="py-string">'my_install_package'</span>, package = <span class="py-string">'my_package'</span>)
-var = Variables()
-decls = SConsGnuArguments.InstallDirs.Declarations()
-args = decls.Commit(env, var, True)
-args.Postprocess(env, var, True)
-
-<span class="py-keyword">print</span> env.subst(<span class="py-string">&quot;prefix : ${prefix}&quot;</span>)
-<span class="py-keyword">print</span> env.subst(<span class="py-string">&quot;bindir : ${bindir}&quot;</span>)</pre>
-<p>Running examples:</p>
-<pre class="rst-literal-block">
-ptomulik&#64;barakus:$ scons -Q
-prefix : /usr/local
-bindir : /usr/local/bin
-
-ptomulik&#64;barakus:$ scons -Q prefix=/usr
-prefix : /usr
-bindir : /usr/bin
-</pre>
-<p><strong>Supported variables</strong></p>
+<div class="rst-section" id="rst-supported-variables">
+<h1 class="heading">Supported variables:</h1>
 <blockquote>
 <dl class="rst-docutils">
-<dt>prefix</dt>
-<dd>Installation prefix</dd>
-<dt>exec_prefix</dt>
-<dd>Installation prefix for executable files</dd>
-<dt>bindir</dt>
-<dd>The directory for installing executable programs that users can run.</dd>
-<dt>sbindir</dt>
-<dd>The directory for installing executable programs that can be run from the
-shell, but are only generally useful to system administrators.</dd>
-<dt>libexecdir</dt>
-<dd>The directory for installing executable programs to be run by other
-programs rather than by users.</dd>
-<dt>datarootdir</dt>
-<dd>The root of the directory tree for read-only architecture-independent
-data files.</dd>
-<dt>datadir</dt>
-<dd>The directory for installing idiosyncratic read-only
-architecture-independent data files for this program.</dd>
-<dt>sysconfdir</dt>
-<dd>The directory for installing read-only data files that pertain to a single
-machine - that is to say, files for configuring a host.</dd>
-<dt>sharedstatedir</dt>
-<dd>The directory for installing architecture-independent data files which
-the programs modify while they run.</dd>
-<dt>localstatedir</dt>
-<dd>The directory for installing data files which the programs modify while
-they run, and that pertain to one specific machine.</dd>
-<dt>includedir</dt>
-<dd>The directory for installing header files to be included by user programs
-with the C <tt class="rst-docutils literal">#include</tt> preprocessor directive.</dd>
-<dt>oldincludedir</dt>
-<dd>The directory for installing <tt class="rst-docutils literal">#include</tt> header files for use with compilers
-other than GCC.</dd>
-<dt>docdir</dt>
-<dd>The directory for installing documentation files (other than Info) for this
-package.</dd>
-<dt>infodir</dt>
-<dd>The directory for installing the Info files for this package.</dd>
-<dt>htmldir</dt>
-<dd>Directory for installing documentation files in the html format.</dd>
-<dt>dvidir</dt>
-<dd>Directory for installing documentation files in the dvi format.</dd>
-<dt>pdfdir</dt>
-<dd>Directory for installing documentation files in the pdf format.</dd>
-<dt>psdir</dt>
-<dd>Directory for installing documentation files in the ps format.</dd>
-<dt>libdir</dt>
-<dd>The directory for object files and libraries of object code.</dd>
-<dt>lispdir</dt>
-<dd>The directory for installing any Emacs Lisp files in this package.</dd>
-<dt>localedir</dt>
-<dd>The directory for installing locale-specific message catalogs for this
-package.</dd>
-<dt>mandir</dt>
-<dd>The top-level directory for installing the man pages (if any) for this
-package.</dd>
-<dt>man1dir .. man9dir</dt>
-<dd>Simmilar to mandir</dd>
-<dt>man1ext .. man9ext</dt>
-<dd>Extensions for manpage files.</dd>
-<dt>pkgdatadir</dt>
-<dd>The directory for installing idiosyncratic read-only
-architecture-independent data files for this program.</dd>
-<dt>pkgincludedir</dt>
-<dd>The directory for installing header files to be included by user programs
-with the C <tt class="rst-docutils literal">#include</tt> preprocessor directive.</dd>
-<dt>pkglibdir</dt>
-<dd>The directory for object files and libraries of object code.</dd>
-<dt>pkglibexecdir</dt>
-<dd>The directory for installing executable programs to be run by other
-programs rather than by users.</dd>
+<dt>AWK</dt>
+<dd>The awk program</dd>
+<dt>EGREP</dt>
+<dd>The egrep program</dd>
+<dt>FGREP</dt>
+<dd>The fgrep program</dd>
+<dt>GREP</dt>
+<dd>The grep program</dd>
+<dt>INSTALL</dt>
+<dd>The program used to install files</dd>
+<dt>INSTALL_DATA</dt>
+<dd>The program used to install data</dd>
+<dt>INSTALL_PROGRAM</dt>
+<dd>The program used to install programs</dd>
+<dt>INSTALL_SCRIPT</dt>
+<dd>The program used to install scripts</dd>
+<dt>LEX</dt>
+<dd>The lex program</dd>
+<dt>LEX_OUTPUT_ROOT</dt>
+<dd>The base of the file name that the LEX generates</dd>
+<dt>LEXLIB</dt>
+<dd>Library that should be linked to LEX-generated program</dd>
+<dt>LN_S</dt>
+<dd>Either 'ln -s', 'cp -pR' or just 'ln'</dd>
+<dt>MKDIR_P</dt>
+<dd>Either 'mkdir -p' or 'install-sh'</dd>
+<dt>RANLIB</dt>
+<dd>The ranlib program</dd>
+<dt>SED</dt>
+<dd>The sed program</dd>
+<dt>YACC</dt>
+<dd>The yacc program</dd>
 </dl>
 </blockquote>
+</div>
 
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
@@ -190,11 +127,9 @@ programs rather than by users.</dd>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init_module_vars"></a><span class="summary-sig-name">__init_module_vars</span>(<span class="summary-sig-arg">**kw</span>)</span><br />
-      Initializes some module-level variables. This is an internal function
-and IS <strong>NOT a part of public API</strong>.</td>
+          <td><span class="summary-sig"><a name="__init_module_vars"></a><span class="summary-sig-name">__init_module_vars</span>()</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#__init_module_vars">source&nbsp;code</a></span>
+            <span class="codelink"><a href="SConsGnuArguments.AltPrograms-pysrc.html#__init_module_vars">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -208,10 +143,10 @@ and IS <strong>NOT a part of public API</strong>.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="SConsGnuArguments.InstallDirs-module.html#Names" class="summary-sig-name">Names</a>(<span class="summary-sig-arg">name_filter</span>=<span class="summary-sig-default">&lt;__builtin__.function object&gt;</span>)</span><br />
-      Return list of standard GNU directory argument names.</td>
+          <td><span class="summary-sig"><a href="SConsGnuArguments.AltPrograms-module.html#Names" class="summary-sig-name">Names</a>(<span class="summary-sig-arg">name_filter</span>=<span class="summary-sig-default">&lt;__builtin__.function object&gt;</span>)</span><br />
+      Return list of argument names for alternative programs.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#Names">source&nbsp;code</a></span>
+            <span class="codelink"><a href="SConsGnuArguments.AltPrograms-pysrc.html#Names">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -225,11 +160,10 @@ and IS <strong>NOT a part of public API</strong>.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="SConsGnuArguments.InstallDirs-module.html#Declarations" class="summary-sig-name">Declarations</a>(<span class="summary-sig-arg">**kw</span>)</span><br />
-      Return declarations of SCons <em>arguments</em> for all predefined GNU
-installation directory variables.</td>
+          <td><span class="summary-sig"><a href="SConsGnuArguments.AltPrograms-module.html#Declarations" class="summary-sig-name">Declarations</a>(<span class="summary-sig-arg">**kw</span>)</span><br />
+      Return declarations of <em>arguments</em> related to alternative programs.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#Declarations">source&nbsp;code</a></span>
+            <span class="codelink"><a href="SConsGnuArguments.AltPrograms-pysrc.html#Declarations">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -259,17 +193,16 @@ installation directory variables.</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="SConsGnuArguments.InstallDirs-module.html#_std_arg_triples" class="summary-name" onclick="show_private();">_std_arg_triples</a> = <code title="[('prefix', 'Installation prefix', '/usr/local'),
- ('exec_prefix',
-  'Installation prefix for executable files',
-  '${prefix}'),
- ('bindir',
-  'The directory for installing executable programs that users can run\
-.',
-  '${exec_prefix}/bin'),
-..."><code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">prefix</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Installation prefix</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">/usr/lo</code><code class="variable-ellipsis">...</code></code><br />
-      Standard list of arguments for GNU install directories. This is internal
-attribute and IS <strong>NOT a part of public API</strong>
+        <a href="SConsGnuArguments.AltPrograms-module.html#_std_arg_triples" class="summary-name" onclick="show_private();">_std_arg_triples</a> = <code title="[('AWK', 'The awk program', UNDEFINED),
+ ('EGREP', 'The egrep program', UNDEFINED),
+ ('FGREP', 'The fgrep program', UNDEFINED),
+ ('GREP', 'The grep program', UNDEFINED),
+ ('INSTALL', 'The program used to install files', UNDEFINED),
+ ('INSTALL_DATA', 'The program used to install data', '${INSTALL}'),
+ ('INSTALL_PROGRAM',
+  'The program used to install programs',
+..."><code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">AWK</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">The awk program</code><code class="variable-quote">'</code><code class="variable-op">, </code>UNDEFINED<code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">E</code><code class="variable-ellipsis">...</code></code><br />
+      Predefined arguments. This is for internal use, it IS <strong>NOT a part of public API</strong>
     </td>
   </tr>
 <tr>
@@ -308,11 +241,11 @@ attribute and IS <strong>NOT a part of public API</strong>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">Names</span>(<span class="sig-arg">name_filter</span>=<span class="sig-default">&lt;__builtin__.function object&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#Names">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="SConsGnuArguments.AltPrograms-pysrc.html#Names">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  Return list of standard GNU directory argument names.
+  Return list of argument names for alternative programs.
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -335,16 +268,15 @@ variables are processed, for which name_filter returns <tt class="rst-docutils l
   <h3 class="epydoc"><span class="sig"><span class="sig-name">Declarations</span>(<span class="sig-arg">**kw</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="SConsGnuArguments.InstallDirs-pysrc.html#Declarations">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="SConsGnuArguments.AltPrograms-pysrc.html#Declarations">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  Return declarations of SCons <em>arguments</em> for all predefined GNU
-installation directory variables.
+  Return declarations of <em>arguments</em> related to alternative programs.
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>defaults</code></strong> (dict) - user-specified default values for the Arguments being declared,</li>
+        <li><strong class="pname"><code>defaults</code></strong> (dict) - user-specified default values for the <em>arguments</em> being declared,</li>
         <li><strong class="pname"><code>name_filter</code></strong> (callable) - callable object (e.g. lambda) of type <tt class="rst-docutils literal">name_filter(name) <span class="pre">-&gt;</span>
 boolean</tt> used to filter-out unwanted variables; only these
 variables are processed, for which name_filter returns <tt class="rst-docutils literal">True</tt></li>
@@ -360,7 +292,7 @@ variable, command-line option) names,</li>
         <li><strong class="pname"><code>opt_key_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
         <li><strong class="pname"><code>opt_key_suffix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
         <li><strong class="pname"><code>opt_key_transform</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>, note that
-<a href="SConsGnuArguments.InstallDirs-module.html#Declarations" class="link">Declarations</a> sets this to <tt class="rst-docutils literal">False</tt> by default,</li>
+<a href="SConsGnuArguments.AltPrograms-module.html#Declarations" class="link">Declarations</a> sets this to <tt class="rst-docutils literal">False</tt> by default,</li>
         <li><strong class="pname"><code>opt_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
         <li><strong class="pname"><code>opt_name_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
         <li><strong class="pname"><code>opt_name_suffix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
@@ -396,21 +328,20 @@ variable, command-line option) names,</li>
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">_std_arg_triples</h3>
-  Standard list of arguments for GNU install directories. This is internal
-attribute and IS <strong>NOT a part of public API</strong>
+  Predefined arguments. This is for internal use, it IS <strong>NOT a part of public API</strong>
   <dl class="fields">
   </dl>
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">prefix</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Installation prefix</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">/usr/local</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
- <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">exec_prefix</code><code class="variable-quote">'</code><code class="variable-op">,</code>
-  <code class="variable-quote">'</code><code class="variable-string">Installation prefix for executable files</code><code class="variable-quote">'</code><code class="variable-op">,</code>
-  <code class="variable-quote">'</code><code class="variable-string">${prefix}</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
- <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">bindir</code><code class="variable-quote">'</code><code class="variable-op">,</code>
-  <code class="variable-quote">'</code><code class="variable-string">The directory for installing executable programs that users can run</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-<code class="variable-string">.</code><code class="variable-quote">'</code><code class="variable-op">,</code>
-  <code class="variable-quote">'</code><code class="variable-string">${exec_prefix}/bin</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+<code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">AWK</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">The awk program</code><code class="variable-quote">'</code><code class="variable-op">, </code>UNDEFINED<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">EGREP</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">The egrep program</code><code class="variable-quote">'</code><code class="variable-op">, </code>UNDEFINED<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">FGREP</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">The fgrep program</code><code class="variable-quote">'</code><code class="variable-op">, </code>UNDEFINED<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">GREP</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">The grep program</code><code class="variable-quote">'</code><code class="variable-op">, </code>UNDEFINED<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">INSTALL</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">The program used to install files</code><code class="variable-quote">'</code><code class="variable-op">, </code>UNDEFINED<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">INSTALL_DATA</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">The program used to install data</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">${INSTALL}</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">INSTALL_PROGRAM</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+  <code class="variable-quote">'</code><code class="variable-string">The program used to install programs</code><code class="variable-quote">'</code><code class="variable-op">,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
