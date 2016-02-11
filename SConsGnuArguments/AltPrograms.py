@@ -163,40 +163,40 @@ def Declarations(**kw):
             callable object (e.g. lambda) of type ``name_filter(name) ->
             boolean`` used to filter-out unwanted variables; only these
             variables are processed, for which name_filter returns ``True``
-        transformer : `SConsArguments.Transformer`
-            a `SConsArguments.Transformer` object used to transform
+        nameconv : `SConsArguments._ArgumentNameConv`
+            a `SConsArguments._ArgumentNameConv` object used to transform
             *argument* names to *endpoint* (construction variable, command-line
             variable, command-line option) names,
         env_key_prefix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         env_key_suffix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         env_key_transform
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         var_key_prefix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         var_key_suffix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         var_key_transform
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_key_prefix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_key_suffix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_key_transform
-            passed to `SConsArguments.Transformer.__init__()`, note that
+            passed to `SConsArguments._ArgumentNameConv.__init__()`, note that
             `Declarations` sets this to ``False`` by default,
         opt_prefix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_name_prefix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_name_suffix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         option_transform
-            passed to `SConsArguments.Transformer.__init__()`.
-    
+            passed to `SConsArguments._ArgumentNameConv.__init__()`.
+
     :Returns:
-        an instance of `SConsArguments._ArgumentDecls`
+        an instance of `SConsArguments._ArgumentDeclarations`
     """
     if not 'opt_key_transform' in kw:
         kw['opt_key_transform'] = False

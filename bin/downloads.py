@@ -58,9 +58,12 @@ def scons_docbook_version_string(s):
     return s
 
 def scons_arguments_version_string(s):
-    if not s in _scons_arguments_versions:
-        supported = ', '.join(["'%s'" % v for v in  _scons_arguments_versions])
-        raise argparse.ArgumentTypeError('wrong version %r, supported versions are: %s' % (s, supported))
+##  FIXME: shall we check scons-arguments version? This is a little bit
+##  troublesome during development (where we may need to checkout particular
+##  tag or branch of scons-arguments)
+##    if not s in _scons_arguments_versions:
+##        supported = ', '.join(["'%s'" % v for v in  _scons_arguments_versions])
+##        raise argparse.ArgumentTypeError('wrong version %r, supported versions are: %s' % (s, supported))
     return s
 
 def untar(tar, **kw):
@@ -194,6 +197,7 @@ _all_packages = ['scons-test', 'scons-docbook', 'scons-arguments']
 
 # scons
 _scons_versions = ['tip',
+                   '2.4.1', 
                    '2.4.0', 
                    '2.3.6',
                    '2.3.5',

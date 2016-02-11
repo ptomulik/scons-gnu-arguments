@@ -142,19 +142,19 @@ class Test__std_arg_triples(unittest.TestCase):
         self.assertEqual(t1[0], t2[0]) # name
         self.assertEqual(t1[1], t2[1]) # help message
         self.assertEqual(t1[2], t2[2]) # default value
-        
+
     def test_AWK(self):
         """Test 'AWK' in AltPrograms._std_arg_triples"""
         self.chck_triple('AWK')
-        
+
     def test_EGREP(self):
         """Test 'EGREP' in AltPrograms._std_arg_triples"""
         self.chck_triple('EGREP')
-        
+
     def test_FGREP(self):
         """Test 'FGREP' in AltPrograms._std_arg_triples"""
         self.chck_triple('FGREP')
-        
+
     def test_GREP(self):
         """Test 'GREP' in AltPrograms._std_arg_triples"""
         self.chck_triple('GREP')
@@ -162,47 +162,47 @@ class Test__std_arg_triples(unittest.TestCase):
     def test_INSTALL(self):
         """Test 'INSTALL' in AltPrograms._std_arg_triples"""
         self.chck_triple('INSTALL')
-        
+
     def test_INSTALL_DATA(self):
         """Test 'INSTALL_DATA' in AltPrograms._std_arg_triples"""
         self.chck_triple('INSTALL_DATA')
-        
+
     def test_INSTALL_PROGRAM(self):
         """Test 'INSTALL_PROGRAM' in AltPrograms._std_arg_triples"""
         self.chck_triple('INSTALL_PROGRAM')
-        
+
     def test_INSTALL_SCRIPT(self):
         """Test 'INSTALL_SCRIPT' in AltPrograms._std_arg_triples"""
         self.chck_triple('INSTALL_SCRIPT')
-        
+
     def test_LEX(self):
         """Test 'LEX' in AltPrograms._std_arg_triples"""
         self.chck_triple('LEX')
-        
+
     def test_LEX_OUTPUT_ROOT(self):
         """Test 'LEX_OUTPUT_ROOT' in AltPrograms._std_arg_triples"""
         self.chck_triple('LEX_OUTPUT_ROOT')
-        
+
     def test_LEXLIB(self):
         """Test 'LEXLIB' in AltPrograms._std_arg_triples"""
         self.chck_triple('LEXLIB')
-        
+
     def test_LN_S(self):
         """Test 'LN_S' in AltPrograms._std_arg_triples"""
         self.chck_triple('LN_S')
-        
+
     def test_MKDIR_P(self):
         """Test 'MKDIR_P' in AltPrograms._std_arg_triples"""
         self.chck_triple('MKDIR_P')
-        
+
     def test_RANLIB(self):
         """Test 'RANLIB' in AltPrograms._std_arg_triples"""
         self.chck_triple('RANLIB')
-        
+
     def test_SED(self):
         """Test 'SED' in AltPrograms._std_arg_triples"""
         self.chck_triple('SED')
-        
+
     def test_YACC(self):
         """Test 'YACC' in AltPrograms._std_arg_triples"""
         self.chck_triple('YACC')
@@ -229,9 +229,9 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_1(self):
         """AltPrograms.Declarations() should return all argument declaratins"""
         decls = SConsGnuArguments.AltPrograms.Declarations()
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         for (key, hlp, default) in _test_arg_triples:
-            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
+            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDeclaration)
             self.assertEqual(decls[key].get_env_key(), key)
             self.assertEqual(decls[key].get_var_key(), key)
             self.assertFalse(decls[key].has_opt_decl())
@@ -241,9 +241,9 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_2(self):
         """AltPrograms.Declarations(env_key_transform=False) should not create construction variables"""
         decls = SConsGnuArguments.AltPrograms.Declarations(env_key_transform = False)
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         for (key, hlp, default) in _test_arg_triples:
-            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
+            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDeclaration)
             self.assertFalse(decls[key].has_env_decl())
             self.assertTrue(decls[key].has_var_decl())
             self.assertFalse(decls[key].has_opt_decl())
@@ -251,9 +251,9 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_3(self):
         """AltPrograms.Declarations(var_key_transform=False) should not create command-line variables"""
         decls = SConsGnuArguments.AltPrograms.Declarations(var_key_transform = False)
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         for (key, hlp, default) in _test_arg_triples:
-            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
+            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDeclaration)
             self.assertTrue(decls[key].has_env_decl())
             self.assertFalse(decls[key].has_var_decl())
             self.assertFalse(decls[key].has_opt_decl())
@@ -261,9 +261,9 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_4(self):
         """AltPrograms.Declarations(opt_key_transform=True) should create command-line options"""
         decls = SConsGnuArguments.AltPrograms.Declarations(opt_key_transform = True)
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         for (key, hlp, default) in _test_arg_triples:
-            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
+            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDeclaration)
             self.assertTrue(decls[key].has_env_decl())
             self.assertTrue(decls[key].has_var_decl())
             self.assertTrue(decls[key].has_opt_decl())
@@ -271,7 +271,7 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_5(self):
         """AltPrograms.Declarations(name_filter = lambda s : s == 'AWK') should only create 'AWK' argument"""
         decls = SConsGnuArguments.AltPrograms.Declarations(name_filter = lambda s : s == 'AWK')
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         self.assertEqual(len(decls), 1)
         self.assertEqual(decls['AWK'].get_env_key(), 'AWK')
         self.assertEqual(decls['AWK'].get_var_key(), 'AWK')
@@ -280,7 +280,7 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_6(self):
         """AltPrograms.Declarations(name_filter = ['AWK', 'FOO']) should only create 'AWK' argument"""
         decls = SConsGnuArguments.AltPrograms.Declarations(name_filter = ['AWK', 'FOO'])
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         self.assertEqual(len(decls), 1)
         self.assertEqual(decls['AWK'].get_env_key(), 'AWK')
         self.assertEqual(decls['AWK'].get_var_key(), 'AWK')
@@ -295,9 +295,9 @@ class Test_Declarations(unittest.TestCase):
                     opt_name_prefix = 'on_', opt_name_suffix = '_no',
                     opt_prefix = '-', opt_key_transform=True
                 )
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         for (key, hlp, default) in _test_arg_triples:
-            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
+            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDeclaration)
             self.assertEqual(decls[key].get_env_key(), 'ENV_' + key + '_VNE')
             self.assertEqual(decls[key].get_var_key(), 'VAR_' + key + '_RAV')
             self.assertEqual(decls[key].get_opt_key(), 'opt_' + key.lower() + '_pto')

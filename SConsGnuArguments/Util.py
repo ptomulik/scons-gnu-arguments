@@ -97,8 +97,8 @@ def arguments_from_triples(triples, **kw):
             callable object (e.g. lambda) of type ``name_filter(name) ->
             boolean`` used to filter-out unwanted variables; only these
             variables are processed, for which name_filter returns ``True``
-        transformer : `SConsArguments.Transformer`
-            a `SConsArguments.Transformer` object used to transform
+        nameconv : `SConsArguments._ArgumentNameConv`
+            a `SConsArguments._ArgumentNameConv` object used to transform
             *argument* names to *endpoint* (construction variable, command-line
             variable, command-line option) names,
         type
@@ -106,34 +106,34 @@ def arguments_from_triples(triples, **kw):
         metavar
             use as command-line metavar
         env_key_prefix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         env_key_suffix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         env_key_transform
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         var_key_prefix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         var_key_suffix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         var_key_transform
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_key_prefix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_key_suffix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_key_transform
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_prefix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_name_prefix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         opt_name_suffix
-            passed to `SConsArguments.Transformer.__init__()`,
+            passed to `SConsArguments._ArgumentNameConv.__init__()`,
         option_transform
-            passed to `SConsArguments.Transformer.__init__()`.
-    
+            passed to `SConsArguments._ArgumentNameConv.__init__()`.
+
     :Returns:
-        an instance of `SConsArguments._ArgumentDecls`
+        an instance of `SConsArguments._ArgumentDeclarations`
     """
     # TODO: This is quite unorganized, I should get back here and elaborate
     def _callback(name, desc, default):
@@ -146,19 +146,19 @@ def arguments_from_triples(triples, **kw):
         else:
             # FIXME: especially this, how do we know in general what the
             # metavar should we generate for a given variable, do we have any
-            # idea? This should be probably job for Transformer.
+            # idea? This should be probably job for _ArgumentNameConv.
             if name.endswith('ext'):
                 _metavar = 'EXT'
             elif name.endswith('dir') or name == 'prefix' or name == 'exec_prefix':
                 _metavar = 'DIR'
             else:
                 _metavar = 'X'
-        decl = { 'env_key'  : transformer.env_key_transform(name),
-                 'var_key'  : transformer.var_key_transform(name),
-                 'opt_key'  : transformer.opt_key_transform(name),
+        decl = { 'env_key'  : nameconv.env_key_transform(name),
+                 'var_key'  : nameconv.var_key_transform(name),
+                 'opt_key'  : nameconv.opt_key_transform(name),
                  'default'  : default,
                  'help'     : desc,
-                 'option'   : transformer.option_transform(name),
+                 'option'   : nameconv.option_transform(name),
                  'type'     : _type,
                  'nargs'    : 1,
                  'metavar'  : _metavar }
@@ -169,9 +169,9 @@ def arguments_from_triples(triples, **kw):
     _type = kw.get('type', 'string')
     metavar = kw.get('metavar')
     try:
-        transformer = kw['transformer']
+        nameconv = kw['nameconv']
     except KeyError:
-        skip = ['defaults', 'name_filter', 'transformer', 'type', 'metavar']
+        skip = ['defaults', 'name_filter', 'nameconv', 'type', 'metavar']
         kw2 = { k:v for (k,v) in kw.iteritems() if k not in skip }
-        transformer = SConsArguments.Transformer(**kw2)
+        nameconv = SConsArguments._ArgumentNameConv(**kw2)
     return SConsArguments.DeclareArguments(map_triples(_callback, triples, name_filter))
