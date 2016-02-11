@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>SConsGnuArguments</title>
+  <title>SConsArguments.Proxy</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -34,7 +34,8 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        Package&nbsp;SConsGnuArguments
+        <a href="SConsArguments-module.html">Package&nbsp;SConsArguments</a> ::
+        Module&nbsp;Proxy
       </span>
     </td>
     <td>
@@ -44,69 +45,45 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="SConsGnuArguments-module.html"
+            >]&nbsp;|&nbsp;<a href="SConsArguments.Proxy-module.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
-<!-- ==================== PACKAGE DESCRIPTION ==================== -->
-<h1 class="epydoc">Package SConsGnuArguments</h1><p class="nomargin-top"><span class="codelink"><a href="SConsGnuArguments-pysrc.html">source&nbsp;code</a></span></p>
-<p><a href="SConsGnuArguments-module.html" class="link">SConsGnuArguments</a></p>
-<p>This package provides definition of some commonly used SCons <em>arguments</em>
-(concept impemented in <a href="SConsArguments-module.html" class="link">SConsArguments</a> package) when working on GNU-like
-projects. The package contains several submodules, which provide more and
-more predefined <em>arguments</em></p>
-<blockquote>
-<ul class="rst-simple">
-<li><a href="SConsGnuArguments.InstallDirs-module.html" class="link">SConsGnuArguments.InstallDirs</a> - GNU directory variables, i.e.
-<tt class="rst-docutils literal">$prefix</tt>, <tt class="rst-docutils literal">$exec_prefix</tt> and such,</li>
-<li><a href="SConsGnuArguments.AltPrograms-module.html" class="link">SConsGnuArguments.AltPrograms</a> - GNU alternative programs, i.e.
-<tt class="rst-docutils literal">$AWK</tt>, <tt class="rst-docutils literal">$GREP</tt>, and such.</li>
-</ul>
-</blockquote>
-<p>Each module provides at least two functions:</p>
-<blockquote>
-<ul class="rst-simple">
-<li><tt class="rst-docutils literal">Names()</tt>, to list names of SCons <em>arguments</em> being provided by module,</li>
-<li><tt class="rst-docutils literal">Declarations()</tt>, to retrieve actual <em>argument</em> declarations.</li>
-</ul>
-</blockquote>
-<p>The typical usage pattern is (taking <a href="SConsGnuArguments.InstallDirs-module.html" class="link">InstallDirs</a> as example):</p>
-<pre class="py-doctest">
-<span class="py-comment"># SConstruct</span>
-<span class="py-comment"># ...</span>
-decls = SConsArguments.AgumentDeclarations() <span class="py-comment"># somewhere</span>
-<span class="py-comment"># ...</span>
-decls.update(SConsGnuArguments.InstallDirs.Declarations())
-<span class="py-comment"># ...</span></pre>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module Proxy</h1><p class="nomargin-top"><span class="codelink"><a href="SConsArguments.Proxy-pysrc.html">source&nbsp;code</a></span></p>
+<p><a href="SConsArguments.Proxy-module.html" class="link">SConsArguments.Proxy</a></p>
+<p>Provides the <a href="SConsArguments.Proxy._ArgumentsProxy-class.html" class="link" onclick="show_private();">_ArgumentsProxy</a> class</p>
 
-<!-- ==================== SUBMODULES ==================== -->
-<a name="section-Submodules"></a>
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td colspan="2" class="table-header">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr valign="top">
-        <td align="left"><span class="table-header">Submodules</span></td>
+        <td align="left"><span class="table-header">Classes</span></td>
         <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Submodules"
+         ><span class="options">[<a href="#section-Classes"
          class="privatelink" onclick="toggle_private();"
          >hide private</a>]</span></td>
       </tr>
     </table>
   </td>
 </tr>
-  <tr><td class="summary">
-  <ul class="nomargin">
-    <li> <strong class="uidlink"><a href="SConsGnuArguments.AltPrograms-module.html">SConsGnuArguments.AltPrograms</a></strong>: <em class="summary"><a href="SConsGnuArguments.AltPrograms-module.html" class="link">SConsGnuArguments.AltPrograms</a></em>    </li>
-    <li> <strong class="uidlink"><a href="SConsGnuArguments.InstallDirs-module.html">SConsGnuArguments.InstallDirs</a></strong>: <em class="summary"><a href="SConsGnuArguments.InstallDirs-module.html" class="link">SConsGnuArguments.InstallDirs</a></em>    </li>
-    <li> <strong class="uidlink"><a href="SConsGnuArguments.Util-module.html">SConsGnuArguments.Util</a></strong>: <em class="summary">SConsGnuArguments.Util</em>    </li>
-  </ul></td></tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="SConsArguments.Proxy._ArgumentsProxy-class.html" class="summary-name" onclick="show_private();">_ArgumentsProxy</a><br />
+      Proxy object used to access indirectly variables stored in a <strong>target</strong>
+dictionary. The indirection layer automatically maps variable names between
+two namespaces (<strong>user</strong> and <strong>target</strong>).
+    </td>
+  </tr>
 </table>
-
-<br />
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -128,8 +105,7 @@ decls.update(SConsGnuArguments.InstallDirs.Declarations())
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code><br />
-      hash(x)
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'SConsArguments'"><code class="variable-quote">'</code><code class="variable-string">SConsArguments</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>

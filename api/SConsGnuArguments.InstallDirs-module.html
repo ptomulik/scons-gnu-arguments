@@ -348,26 +348,26 @@ installation directory variables.
         <li><strong class="pname"><code>name_filter</code></strong> (callable) - callable object (e.g. lambda) of type <tt class="rst-docutils literal">name_filter(name) <span class="pre">-&gt;</span>
 boolean</tt> used to filter-out unwanted variables; only these
 variables are processed, for which name_filter returns <tt class="rst-docutils literal">True</tt></li>
-        <li><strong class="pname"><code>transformer</code></strong> (<a href="SConsArguments.Transformer-class.html" class="link">SConsArguments.Transformer</a>) - a <a href="SConsArguments.Transformer-class.html" class="link">SConsArguments.Transformer</a> object used to transform
+        <li><strong class="pname"><code>nameconv</code></strong> (<a href="SConsArguments.NameConv._ArgumentNameConv-class.html" class="link" onclick="show_private();">SConsArguments._ArgumentNameConv</a>) - a <a href="SConsArguments.NameConv._ArgumentNameConv-class.html" class="link" onclick="show_private();">SConsArguments._ArgumentNameConv</a> object used to transform
 <em>argument</em> names to <em>endpoint</em> (construction variable, command-line
 variable, command-line option) names,</li>
-        <li><strong class="pname"><code>env_key_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>env_key_suffix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>env_key_transform</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>var_key_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>var_key_suffix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>var_key_transform</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>opt_key_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>opt_key_suffix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>opt_key_transform</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>, note that
+        <li><strong class="pname"><code>env_key_prefix</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>env_key_suffix</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>env_key_transform</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>var_key_prefix</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>var_key_suffix</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>var_key_transform</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>opt_key_prefix</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>opt_key_suffix</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>opt_key_transform</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>, note that
 <a href="SConsGnuArguments.InstallDirs-module.html#Declarations" class="link">Declarations</a> sets this to <tt class="rst-docutils literal">False</tt> by default,</li>
-        <li><strong class="pname"><code>opt_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>opt_name_prefix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>opt_name_suffix</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>,</li>
-        <li><strong class="pname"><code>option_transform</code></strong> - passed to <a href="SConsArguments.Transformer-class.html#__init__" class="link">SConsArguments.Transformer.__init__()</a>.</li>
+        <li><strong class="pname"><code>opt_prefix</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>opt_name_prefix</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>opt_name_suffix</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>,</li>
+        <li><strong class="pname"><code>option_transform</code></strong> - passed to <a href="SConsArguments.NameConv._ArgumentNameConv-class.html#__init__" class="link">SConsArguments._ArgumentNameConv.__init__()</a>.</li>
     </ul></dd>
     <dt>Returns:</dt>
-        <dd>an instance of <a href="SConsArguments._ArgumentDecls-class.html" class="link" onclick="show_private();">SConsArguments._ArgumentDecls</a></dd>
+        <dd>an instance of <a href="SConsArguments.Declarations._ArgumentDeclarations-class.html" class="link" onclick="show_private();">SConsArguments._ArgumentDeclarations</a></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -442,7 +442,7 @@ attribute and IS <strong>NOT a part of public API</strong>
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Sun Nov  8 21:48:39 2015
+    on Thu Feb 11 22:31:43 2016
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
