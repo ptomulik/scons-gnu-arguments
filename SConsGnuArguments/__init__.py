@@ -6,12 +6,14 @@ projects. The package contains several submodules, which provide more and
 more predefined *arguments*
 
     - `SConsGnuArguments.InstallDirs` - GNU directory variables, i.e.
-      ``$prefix``, ``$exec_prefix`` and such.
+      ``$prefix``, ``$exec_prefix`` and such,
+    - `SConsGnuArguments.AltPrograms` - GNU alternative programs, i.e.
+      ``$AWK``, ``$GREP``, and such.
 
 Each module provides at least two functions:
 
-    - ``ArgumentNames()``, to list names of SCons *arguments* being provided by module,
-    - ``ArgumentDeclarations()``, to retrieve actual *argument* declarations.
+    - ``Names()``, to list names of SCons *arguments* being provided by module,
+    - ``Declarations()``, to retrieve actual *argument* declarations.
 
 The typical usage pattern is (taking `InstallDirs` as example):
 
@@ -19,14 +21,14 @@ The typical usage pattern is (taking `InstallDirs` as example):
 
     # SConstruct
     # ...
-    decls = SConsArguments.ArgumentDeclarations() # somewhere
+    decls = SConsArguments.AgumentDeclarations() # somewhere
     # ...
-    decls.update(SConsGnuArguments.InstallDirs.ArgumentDeclarations())
+    decls.update(SConsGnuArguments.InstallDirs.Declarations())
     # ...
 """
 
 #
-# Copyright (c) 2015 by Pawel Tomulik
+# Copyright (c) 2015-2016 by Pawel Tomulik
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
