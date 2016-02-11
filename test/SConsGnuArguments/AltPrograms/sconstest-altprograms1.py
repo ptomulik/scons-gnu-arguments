@@ -36,7 +36,7 @@ test.write('SConstruct',
 # SConstruct
 import SConsGnuArguments.AltPrograms
 
-env = Environment()
+env = Environment(tools = [])
 var = Variables()
 decls = SConsGnuArguments.AltPrograms.Declarations()
 args = decls.Commit(env, var, True)
@@ -60,11 +60,11 @@ r"""    actual: """,
 
 r"""RANLIB: The ranlib program""",
 r"""    default: UNDEFINED""",
-r"""    actual: ranlib""",
+r"""    actual: None""",
 
 r"""YACC: The yacc program""",
 r"""    default: UNDEFINED""",
-r"""    actual: bison""",
+r"""    actual: None""",
 
 r"""FGREP: The fgrep program""",
 r"""    default: UNDEFINED""",
@@ -100,7 +100,7 @@ r"""    actual: None""",
 
 r"""LEX: The lex program""",
 r"""    default: UNDEFINED""",
-r"""    actual: flex""",
+r"""    actual: None""",
 
 r"""LN_S: Either 'ln -s', 'cp -pR' or just 'ln'""",
 r"""    default: UNDEFINED""",
