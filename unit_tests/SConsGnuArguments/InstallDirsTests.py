@@ -202,7 +202,7 @@ class Test__std_arg_triples(unittest.TestCase):
         self.assertEqual(t1[0], t2[0]) # name
         self.assertEqual(t1[1], t2[1]) # help message
         self.assertEqual(t1[2], t2[2]) # default value
-        
+
     def test_prefix(self):
         """Test 'prefix' in InstallDirs._std_arg_triples"""
         self.chck_triple('prefix')
@@ -370,9 +370,9 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_1(self):
         """InstallDirs.Declarations() should return all argument declaratins"""
         decls = SConsGnuArguments.InstallDirs.Declarations()
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         for (key, hlp, default) in _test_arg_triples:
-            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
+            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDeclaration)
             self.assertEqual(decls[key].get_env_key(), key)
             self.assertEqual(decls[key].get_var_key(), key)
             self.assertFalse(decls[key].has_opt_decl())
@@ -382,9 +382,9 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_2(self):
         """InstallDirs.Declarations(env_key_transform=False) should not create construction variables"""
         decls = SConsGnuArguments.InstallDirs.Declarations(env_key_transform = False)
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         for (key, hlp, default) in _test_arg_triples:
-            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
+            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDeclaration)
             self.assertFalse(decls[key].has_env_decl())
             self.assertTrue(decls[key].has_var_decl())
             self.assertFalse(decls[key].has_opt_decl())
@@ -392,9 +392,9 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_3(self):
         """InstallDirs.Declarations(var_key_transform=False) should not create command-line variables"""
         decls = SConsGnuArguments.InstallDirs.Declarations(var_key_transform = False)
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         for (key, hlp, default) in _test_arg_triples:
-            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
+            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDeclaration)
             self.assertTrue(decls[key].has_env_decl())
             self.assertFalse(decls[key].has_var_decl())
             self.assertFalse(decls[key].has_opt_decl())
@@ -402,9 +402,9 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_4(self):
         """InstallDirs.Declarations(opt_key_transform=True) should create command-line options"""
         decls = SConsGnuArguments.InstallDirs.Declarations(opt_key_transform = True)
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         for (key, hlp, default) in _test_arg_triples:
-            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
+            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDeclaration)
             self.assertTrue(decls[key].has_env_decl())
             self.assertTrue(decls[key].has_var_decl())
             self.assertTrue(decls[key].has_opt_decl())
@@ -412,7 +412,7 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_5(self):
         """InstallDirs.Declarations(name_filter = lambda s : s == 'prefix') should only create 'prefix' argument"""
         decls = SConsGnuArguments.InstallDirs.Declarations(name_filter = lambda s : s == 'prefix')
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         self.assertEqual(len(decls), 1)
         self.assertEqual(decls['prefix'].get_env_key(), 'prefix')
         self.assertEqual(decls['prefix'].get_var_key(), 'prefix')
@@ -421,7 +421,7 @@ class Test_Declarations(unittest.TestCase):
     def test_Declarations_6(self):
         """InstallDirs.Declarations(name_filter = ['prefix', 'foo']) should only create 'prefix' argument"""
         decls = SConsGnuArguments.InstallDirs.Declarations(name_filter = ['prefix','foo'])
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         self.assertEqual(len(decls), 1)
         self.assertEqual(decls['prefix'].get_env_key(), 'prefix')
         self.assertEqual(decls['prefix'].get_var_key(), 'prefix')
@@ -436,9 +436,9 @@ class Test_Declarations(unittest.TestCase):
                     opt_name_prefix = 'on_', opt_name_suffix = '_no',
                     opt_prefix = '-', opt_key_transform=True
                 )
-        self.assertEqual(type(decls), SConsArguments._ArgumentDecls)
+        self.assertEqual(type(decls), SConsArguments._ArgumentDeclarations)
         for (key, hlp, default) in _test_arg_triples:
-            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDecl)
+            self.assertEqual(type(decls[key]), SConsArguments._ArgumentDeclaration)
             self.assertEqual(decls[key].get_env_key(), 'ENV_' + key + '_VNE')
             self.assertEqual(decls[key].get_var_key(), 'VAR_' + key + '_RAV')
             self.assertEqual(decls[key].get_opt_key(), 'opt_' + key.lower() + '_pto')

@@ -11,7 +11,7 @@ more predefined *arguments*
 Each module provides at least two functions:
 
     - ``ArgumentNames()``, to list names of SCons *arguments* being provided by module,
-    - ``ArgumentDecls()``, to retrieve actual *argument* declarations.
+    - ``ArgumentDeclarations()``, to retrieve actual *argument* declarations.
 
 The typical usage pattern is (taking `InstallDirs` as example):
 
@@ -19,10 +19,10 @@ The typical usage pattern is (taking `InstallDirs` as example):
 
     # SConstruct
     # ...
-    decls = SConsArguments.ArgumentDecls() # somewhere
+    decls = SConsArguments.ArgumentDeclarations() # somewhere
     # ...
-    decls.update(SConsGnuArguments.InstallDirs.ArgumentDecls())
-    # ... 
+    decls.update(SConsGnuArguments.InstallDirs.ArgumentDeclarations())
+    # ...
 """
 
 #
