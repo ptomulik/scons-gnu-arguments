@@ -153,15 +153,12 @@ def arguments_from_triples(triples, **kw):
                 _metavar = 'DIR'
             else:
                 _metavar = 'X'
-        decl = { 'env_key'  : nameconv.env_key_transform(name),
-                 'var_key'  : nameconv.var_key_transform(name),
-                 'opt_key'  : nameconv.opt_key_transform(name),
-                 'default'  : default,
-                 'help'     : desc,
-                 'option'   : nameconv.option_transform(name),
-                 'type'     : _type,
-                 'nargs'    : 1,
-                 'metavar'  : _metavar }
+        decl = nameconv.name2dict(name)
+        decl.update({'default'  : default,
+                     'help'     : desc,
+                     'type'     : _type,
+                     'nargs'    : 1,
+                     'metavar'  : _metavar })
         return name, decl
 
     defaults = kw.get('defaults', dict())
